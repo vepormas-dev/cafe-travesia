@@ -1,7 +1,7 @@
 {
   "name": "cafe-travesia",
   "private": true,
-  "description": "Ecosistema digital Café Travesía: sitio, e-commerce, academia, CMS, app iOS/Android y servicio push",
+  "description": "Ecosistema digital Caf\u00e9 Traves\u00eda: sitio, e-commerce, academia, CMS, app iOS/Android y servicio push",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -22,7 +22,10 @@
   },
   "overrides": {
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "jwks-rsa": {
+      "jose": "4.15.9"
+    }
   },
   "engines": {
     "node": ">=22"
