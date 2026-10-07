@@ -31,6 +31,15 @@ const issuesToErrors = (issues: { path: PropertyKey[]; message: string }[], pref
 export const TERMS_URL = '/terminos';
 export const PRIVACY_URL = '/privacidad';
 
+/** Mensaje de error de un campo (fuera del render para no recrearlo en cada tecla). */
+function FieldError({ k, errors }: { k: string; errors: Record<string, string | undefined> }) {
+  return errors[k] ? (
+    <p id={`${k}-err`} className="field-error">
+      {errors[k]}
+    </p>
+  ) : null;
+}
+
 export function CheckoutForm() {
   const router = useRouter();
   const { lines } = useCart();
@@ -56,6 +65,7 @@ export function CheckoutForm() {
 
   useEffect(() => {
     const p = getPrefs();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- prellenado desde localStorage/sesión: solo disponible en el navegador
     setA((x) => ({ ...x, region: p.region ?? '', city: p.city ?? '' }));
     setCoupon(p.couponCode ?? null);
     setCouponInput(p.couponCode ?? '');
@@ -76,6 +86,7 @@ export function CheckoutForm() {
     }));
     const def = session.addresses.find((d) => d.isDefault) ?? session.addresses[0];
     if (def) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- prellenado desde localStorage/sesión: solo disponible en el navegador
       setAddrId(def.id);
       setA({ recipient: def.recipient, phone: def.phone, region: def.region, city: def.city, line1: def.line1, line2: def.line2 ?? '', notes: def.notes ?? '' });
     } else setA((x) => ({ ...x, recipient: x.recipient || me.fullName || '', phone: x.phone || me.phone || '' }));
@@ -107,7 +118,6 @@ export function CheckoutForm() {
 
   const err = (k: string) => errors[k];
   const field = (k: string) => ({ 'aria-invalid': Boolean(errors[k]), 'aria-describedby': errors[k] ? `${k}-err` : undefined, className: cn('input', errors[k] && 'input-error') });
-  const Err = ({ k }: { k: string }) => (errors[k] ? <p id={`${k}-err`} className="field-error">{errors[k]}</p> : null);
 
   function next(from: Step) {
     if (from === 1) {
@@ -231,21 +241,21 @@ export function CheckoutForm() {
                 Correo electrónico
               </label>
               <input id="customer.email" type="email" autoComplete="email" value={c.email} onChange={(e) => setC({ ...c, email: e.target.value })} {...field('customer.email')} readOnly={session.status === 'user'} />
-              <Err k="customer.email" />
+              <FieldError k="customer.email" errors={errors} />
             </div>
             <div className="sm:col-span-2">
               <label htmlFor="customer.fullName" className="label">
                 Nombre completo
               </label>
               <input id="customer.fullName" autoComplete="name" value={c.fullName} onChange={(e) => setC({ ...c, fullName: e.target.value })} {...field('customer.fullName')} />
-              <Err k="customer.fullName" />
+              <FieldError k="customer.fullName" errors={errors} />
             </div>
             <div>
               <label htmlFor="customer.phone" className="label">
                 Celular
               </label>
               <input id="customer.phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="300 000 0000" value={c.phone} onChange={(e) => setC({ ...c, phone: e.target.value })} {...field('customer.phone')} />
-              <Err k="customer.phone" />
+              <FieldError k="customer.phone" errors={errors} />
             </div>
             <div className="grid grid-cols-[120px_1fr] gap-2">
               <div>
@@ -265,7 +275,7 @@ export function CheckoutForm() {
                   Número
                 </label>
                 <input id="customer.legalId" inputMode="numeric" value={c.legalId} onChange={(e) => setC({ ...c, legalId: e.target.value })} {...field('customer.legalId')} />
-                <Err k="customer.legalId" />
+                <FieldError k="customer.legalId" errors={errors} />
               </div>
             </div>
           </div>
@@ -319,21 +329,21 @@ export function CheckoutForm() {
                     Departamento
                   </label>
                   <RegionSelect id="address.region" value={a.region} onChange={(v) => (setA({ ...a, region: v }), setAddrId('new'))} error={err('address.region')} />
-                  <Err k="address.region" />
+                  <FieldError k="address.region" errors={errors} />
                 </div>
                 <div>
                   <label htmlFor="address.city" className="label">
                     Ciudad o municipio
                   </label>
                   <input id="address.city" autoComplete="address-level2" value={a.city} onChange={(e) => (setA({ ...a, city: e.target.value }), setAddrId('new'))} {...field('address.city')} />
-                  <Err k="address.city" />
+                  <FieldError k="address.city" errors={errors} />
                 </div>
                 <div className="sm:col-span-2">
                   <label htmlFor="address.line1" className="label">
                     Dirección
                   </label>
                   <input id="address.line1" autoComplete="address-line1" placeholder="Calle 10 # 43-12" value={a.line1} onChange={(e) => (setA({ ...a, line1: e.target.value }), setAddrId('new'))} {...field('address.line1')} />
-                  <Err k="address.line1" />
+                  <FieldError k="address.line1" errors={errors} />
                 </div>
                 <div className="sm:col-span-2">
                   <label htmlFor="address.line2" className="label">
@@ -346,14 +356,14 @@ export function CheckoutForm() {
                     Quién recibe
                   </label>
                   <input id="address.recipient" autoComplete="name" value={a.recipient} onChange={(e) => setA({ ...a, recipient: e.target.value })} {...field('address.recipient')} />
-                  <Err k="address.recipient" />
+                  <FieldError k="address.recipient" errors={errors} />
                 </div>
                 <div>
                   <label htmlFor="address.phone" className="label">
                     Teléfono de contacto
                   </label>
                   <input id="address.phone" type="tel" autoComplete="tel" value={a.phone} onChange={(e) => setA({ ...a, phone: e.target.value })} {...field('address.phone')} />
-                  <Err k="address.phone" />
+                  <FieldError k="address.phone" errors={errors} />
                 </div>
                 <div className="sm:col-span-2">
                   <label htmlFor="address.notes" className="label">
@@ -420,7 +430,7 @@ export function CheckoutForm() {
                   .
                 </span>
               </label>
-              <Err k="acceptTerms" />
+              <FieldError k="acceptTerms" errors={errors} />
             </div>
             <button type="button" onClick={pay} disabled={busy || q.loading || !totals} className="btn-primary w-full py-4 text-base">
               {busy ? <Loader2 className="size-5 animate-spin" aria-hidden /> : <Lock className="size-4" aria-hidden />}

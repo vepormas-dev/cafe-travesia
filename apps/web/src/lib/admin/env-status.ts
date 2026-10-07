@@ -42,6 +42,7 @@ export function envStatus(): EnvGroup[] {
     ['IA, push y tareas', [
       ['OPENAI_API_KEY', false, 'Chatbot, redacción del CMS, análisis (sin clave: reglas)'],
       ['OPENAI_MODEL', false, `Por defecto ${env.ai.model}`],
+      ['OPENAI_FALLBACK_MODEL', false, 'Respaldo si el modelo principal está saturado'],
       ['EXPO_ACCESS_TOKEN', false, 'Opcional para Expo Push'],
       ['CRON_SECRET', true, 'Protege /api/cron'],
       ['NEXT_PUBLIC_SITE_URL', true, 'URL pública del sitio'],

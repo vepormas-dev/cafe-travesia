@@ -22,7 +22,7 @@ export function ProductPurchase({ product: p, tone, savingPct }: { product: Prod
   const [weight, setWeight] = useState<number | null>(first?.weightG ?? null);
   const [grind, setGrind] = useState<string | null>(first?.grind ?? null);
   const [variantId, setVariantId] = useState<string | null>(first?.id ?? null);
-  const [qty, setQty] = useState(1);
+  const [qtyRaw, setQty] = useState(1);
   const [added, setAdded] = useState(false);
   const [showSticky, setShowSticky] = useState(false);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -31,10 +31,8 @@ export function ProductPurchase({ product: p, tone, savingPct }: { product: Prod
     ? (variants.find((v) => v.weightG === weight && v.grind === grind) ?? variants.find((v) => v.weightG === weight) ?? first)
     : (variants.find((v) => v.id === variantId) ?? first);
   const maxQty = Math.max(1, Math.min(50, variant?.stock ?? 50));
-
-  useEffect(() => {
-    if (qty > maxQty) setQty(maxQty);
-  }, [maxQty, qty]);
+  // La cantidad nunca supera el stock de la variante elegida (derivado, sin efecto).
+  const qty = Math.min(qtyRaw, maxQty);
 
   useEffect(() => {
     const el = ctaRef.current;

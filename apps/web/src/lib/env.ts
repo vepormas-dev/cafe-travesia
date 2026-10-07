@@ -59,6 +59,10 @@ export const env = {
     apiKey: v('OPENAI_API_KEY'),
     baseUrl: (v('OPENAI_BASE_URL') ?? 'https://api.openai.com/v1').replace(/\/$/, ''),
     model: v('OPENAI_MODEL') ?? 'gpt-4.1-mini',
+    // Modelo de respaldo si el principal responde 429/5xx o no contesta (p. ej. Gemini saturado).
+    fallbackModel: v('OPENAI_FALLBACK_MODEL'),
+    // Solo para modelos de razonamiento (Gemini 2.5+/3, o-series): "none" | "low" | "medium" | "high".
+    reasoningEffort: v('OPENAI_REASONING_EFFORT'),
   },
 
   expoAccessToken: v('EXPO_ACCESS_TOKEN'),

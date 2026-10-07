@@ -28,6 +28,7 @@ export function SiteHeader({ account }: { account: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- estado de montaje y cierre del menú al navegar
     setMounted(true);
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
@@ -36,6 +37,7 @@ export function SiteHeader({ account }: { account: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- estado de montaje y cierre del menú al navegar
     setMega(false);
     menuRef.current?.close();
   }, [pathname]);

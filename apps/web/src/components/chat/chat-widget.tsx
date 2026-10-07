@@ -86,11 +86,15 @@ export function ChatWidget() {
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const stateRef = useRef(state);
-  stateRef.current = state;
   const openRef = useRef(open);
-  openRef.current = open;
+  // Copia "más reciente" para los callbacks asíncronos (sondeo, envío); se actualiza tras cada render.
+  useEffect(() => {
+    stateRef.current = state;
+    openRef.current = open;
+  }, [state, open]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- historial guardado en localStorage: solo existe en el navegador
     setState(load());
     setReady(true);
   }, []);

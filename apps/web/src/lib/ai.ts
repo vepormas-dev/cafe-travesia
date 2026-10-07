@@ -17,31 +17,52 @@ Cultivamos, tostamos y servimos café especial: "${brand.claim}".
 Tono: cálido, cercano y experto; español de Colombia con un toque paisa natural (sin exagerar ni caricaturizar). Frases cortas, nada de relleno.
 Nunca inventes precios, stock, fechas de envío ni políticas: usa solo los datos que te den. Si no sabes algo, dilo y ofrece hablar con un asesor.`;
 
+async function callModel(model: string, messages: AiMessage[], opts: { json?: boolean; maxTokens?: number; temperature?: number }) {
+  const res = await fetch(`${env.ai.baseUrl}/chat/completions`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', authorization: `Bearer ${env.ai.apiKey}` },
+    body: JSON.stringify({
+      model,
+      messages,
+      temperature: opts.temperature ?? 0.5,
+      max_tokens: opts.maxTokens ?? 700,
+      ...(env.ai.reasoningEffort ? { reasoning_effort: env.ai.reasoningEffort } : {}),
+      ...(opts.json ? { response_format: { type: 'json_object' } } : {}),
+    }),
+    signal: AbortSignal.timeout(25000),
+  });
+  // Gemini (API compatible con OpenAI) a veces devuelve el error dentro de un arreglo.
+  const raw = (await res.json().catch(() => ({}))) as unknown;
+  const data = (Array.isArray(raw) ? raw[0] : raw) as { choices?: { message?: { content?: string } }[]; error?: { message?: string } };
+  if (!res.ok || data.error) {
+    const err = new Error(data.error?.message ?? `IA respondió ${res.status}`) as Error & { retryable?: boolean };
+    err.retryable = res.status === 429 || res.status >= 500;
+    throw err;
+  }
+  const content = data.choices?.[0]?.message?.content?.trim();
+  if (!content) throw Object.assign(new Error('Respuesta vacía de la IA'), { retryable: true });
+  return content;
+}
+
 export async function aiChat(messages: AiMessage[], opts: { json?: boolean; maxTokens?: number; temperature?: number; feature?: string } = {}): Promise<string | null> {
   if (!isAiConfigured()) return null;
   const t0 = Date.now();
-  try {
-    const res = await fetch(`${env.ai.baseUrl}/chat/completions`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json', authorization: `Bearer ${env.ai.apiKey}` },
-      body: JSON.stringify({
-        model: env.ai.model,
-        messages,
-        temperature: opts.temperature ?? 0.5,
-        max_tokens: opts.maxTokens ?? 700,
-        ...(opts.json ? { response_format: { type: 'json_object' } } : {}),
-      }),
-      signal: AbortSignal.timeout(30000),
-    });
-    const data = (await res.json()) as { choices?: { message?: { content?: string } }[]; error?: { message?: string } };
-    if (!res.ok) throw new Error(data.error?.message ?? `IA respondió ${res.status}`);
-    const content = data.choices?.[0]?.message?.content?.trim() ?? null;
-    void logEvent('ai', opts.feature ?? 'chat', 'ok', { durationMs: Date.now() - t0 });
-    return content;
-  } catch (e) {
-    void logEvent('ai', opts.feature ?? 'chat', 'error', { message: e instanceof Error ? e.message : String(e), durationMs: Date.now() - t0 });
-    return null;
+  // Modelo principal y, si está saturado o falla de forma transitoria, el de respaldo.
+  const models = [env.ai.model, env.ai.fallbackModel].filter((m, i, a): m is string => Boolean(m) && a.indexOf(m) === i);
+  let lastError = '';
+  for (const model of models) {
+    try {
+      const content = await callModel(model, messages, opts);
+      void logEvent('ai', opts.feature ?? 'chat', 'ok', { payload: { model }, durationMs: Date.now() - t0 });
+      return content;
+    } catch (e) {
+      lastError = e instanceof Error ? e.message : String(e);
+      const retryable = (e as { retryable?: boolean }).retryable || (e instanceof Error && e.name === 'TimeoutError');
+      if (!retryable) break;
+    }
   }
+  void logEvent('ai', opts.feature ?? 'chat', 'error', { message: lastError, durationMs: Date.now() - t0 });
+  return null;
 }
 
 export async function aiJson<T>(system: string, user: string, opts: { maxTokens?: number; temperature?: number; feature?: string } = {}): Promise<T | null> {

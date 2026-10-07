@@ -30,6 +30,7 @@ export function PaymentResult() {
 
   useEffect(() => {
     if (!pedido && !txId) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- sin parámetros no hay pago que verificar
       setState('notfound');
       return;
     }
@@ -67,6 +68,9 @@ export function PaymentResult() {
     };
   }, [pedido, txId]);
 
+  const estado = state === 'approved' ? 'aprobado' : state === 'rejected' ? 'rechazado' : 'pendiente';
+  const appLink = () => `cafetravesia://pago?pedido=${encodeURIComponent(pedido ?? data?.order?.id ?? '')}&estado=${estado}`;
+
   // Efectos al llegar a un estado final
   useEffect(() => {
     if (state === 'approved') {
@@ -79,8 +83,6 @@ export function PaymentResult() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
-  const estado = state === 'approved' ? 'aprobado' : state === 'rejected' ? 'rechazado' : 'pendiente';
-  const appLink = () => `cafetravesia://pago?pedido=${encodeURIComponent(pedido ?? data?.order?.id ?? '')}&estado=${estado}`;
   const o = data?.order;
   const hasCourses = o?.kind === 'course' || o?.kind === 'mixed';
 

@@ -28,6 +28,7 @@ export function CartView() {
 
   useEffect(() => {
     const p = getPrefs();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- preferencias guardadas en localStorage: solo existen en el navegador
     setRegion(p.region ?? '');
     setCity(p.city ?? '');
     setCoupon(p.couponCode ?? null);

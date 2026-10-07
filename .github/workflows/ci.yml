@@ -38,6 +38,9 @@ jobs:
       - name: Tipos · apps/web
         working-directory: apps/web
         run: npx tsc --noEmit
+      - name: Lint · apps/web (reglas de React; los avisos no fallan)
+        working-directory: apps/web
+        run: npx eslint . --max-warnings 50
       - name: Tipos · apps/mobile
         working-directory: apps/mobile
         run: npx tsc --noEmit

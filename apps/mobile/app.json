@@ -107,6 +107,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "owner": "grupovepormas",
+    "extra": {
+      "eas": {
+        "projectId": "11e514a1-d4ef-4525-88bb-5e0dd3256002"
+      },
+      "router": {}
     }
   }
 }

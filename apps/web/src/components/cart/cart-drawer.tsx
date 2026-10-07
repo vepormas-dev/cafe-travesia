@@ -45,6 +45,7 @@ export function CartDrawer() {
 
   // Cerrar al navegar
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- cerrar el carrito al cambiar de ruta
     setOpen(false);
   }, [pathname]);
 

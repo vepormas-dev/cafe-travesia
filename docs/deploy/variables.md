@@ -84,6 +84,8 @@ node scripts/check-env.mjs -f .work/.env.preview --target preview
 | `OPENAI_API_KEY` 🔒 | `sk-proj-XXXXXXXXXXXXXXXX` | No | P (V opcional) | Clave de la API de IA. Sin clave: chatbot, búsqueda y tutor responden por reglas. | platform.openai.com › API keys (o el proveedor compatible). |
 | `OPENAI_BASE_URL` | `https://api.openai.com/v1` | No | P, V | URL base de una API compatible con OpenAI (sin "/" final). Por defecto: `https://api.openai.com/v1`. | Proveedor. |
 | `OPENAI_MODEL` | `gpt-4.1-mini` | No | P, V | Modelo de chat. Por defecto: `gpt-4.1-mini`. | Proveedor. |
+| `OPENAI_FALLBACK_MODEL` | `gemini-3.5-flash-lite` | No | P, V | Modelo de respaldo si el principal responde 429/5xx o no contesta. | Proveedor. |
+| `OPENAI_REASONING_EFFORT` | `low` | No | P, V | Solo modelos de razonamiento (Gemini 2.5+/3, o-series): none, low, medium o high. | Proveedor. |
 
 ### Operación
 

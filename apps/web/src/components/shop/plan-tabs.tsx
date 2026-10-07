@@ -12,6 +12,7 @@ export function PlanTabs({ plans }: { plans: PlanDTO[] }) {
   const [qs, setQs] = useState('');
   useEffect(() => {
     const cafe = new URLSearchParams(window.location.search).get('cafe');
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- lee la URL actual (solo en el navegador)
     if (cafe) setQs(`?cafe=${encodeURIComponent(cafe)}`);
     if (window.location.hash === '#empresas') setAud('empresa');
   }, []);

@@ -112,7 +112,7 @@ export async function botReply(input: { message: string; history: AiMessage[]; u
     const ctx = await knowledge(input.user, uc);
     const system = `${BRAND_VOICE}
 Eres el "Asistente Travesía": ayudas a elegir café, suscripciones y cursos, y resuelves dudas de pedidos y envíos.
-Reglas: responde en máximo 90 palabras; usa **negritas** para nombres de productos y enlaces Markdown solo a rutas internas listadas, p. ej. [Cima del Viento](/tienda/cima-del-viento).
+Reglas: responde en máximo 90 palabras; usa **negritas** para nombres de productos y enlaces Markdown solo a rutas internas listadas, p. ej. [Nombre del café](/tienda/su-slug) con el slug real de los DATOS.
 Si piden algo que no está en los datos, dilo y ofrece un asesor humano. Nunca reveles datos de otros clientes.
 Responde SOLO un JSON: {"reply": string, "actions": [{"type": "link"|"buy"|"subscribe"|"course"|"human", "label": string (≤ 28 caracteres), "href"?: string}] (0 a 3)}.
 DATOS:

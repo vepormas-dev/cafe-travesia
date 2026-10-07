@@ -46,6 +46,7 @@ export function SubscriptionConfigurator({ plan, coffees, otherPlans }: { plan: 
   useEffect(() => {
     const slug = new URLSearchParams(window.location.search).get('cafe');
     const p = slug ? coffees.find((x) => x.slug === slug) : null;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- prellenado desde la URL o la sesión: solo disponible en el navegador
     if (p) setProductId(p.id);
   }, [coffees]);
 
@@ -60,6 +61,7 @@ export function SubscriptionConfigurator({ plan, coffees, otherPlans }: { plan: 
 
   useEffect(() => {
     if (session.status !== 'user' || !me) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- prellenado desde la URL o la sesión: solo disponible en el navegador
     setC((x) => ({ email: me.email, fullName: x.fullName || me.fullName || '', phone: x.phone || me.phone || '', legalIdType: me.legalIdType || x.legalIdType, legalId: x.legalId || me.legalId || '' }));
     setCard((x) => ({ ...x, holder: x.holder || (me.fullName ?? '').toUpperCase() }));
     const def = session.addresses.find((d) => d.isDefault) ?? session.addresses[0];

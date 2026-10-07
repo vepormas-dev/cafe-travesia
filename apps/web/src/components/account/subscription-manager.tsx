@@ -37,6 +37,7 @@ export function SubscriptionManager({ sub, plans, coffees, addresses }: { sub: S
 
   useEffect(() => {
     const d = (n: number) => new Date(Date.now() + n * 86400000).toISOString().slice(0, 10);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- fechas relativas a hoy: se calculan en el cliente para no desfasar la hidratación
     setRange({ min: d(1), max: d(180) });
     setUntil(d(30));
     const h = window.location.hash.slice(1) as Panel;

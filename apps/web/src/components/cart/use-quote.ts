@@ -33,6 +33,7 @@ export function useQuote(lines: CartLine[], opts: QuoteOptions = {}, delay = 350
 
   useEffect(() => {
     if (!items.length) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- carrito vacío: cotización vacía inmediata, sin ir al servidor
       setState({ data: { lines: [], totals: null, coupon: null, availablePoints: 0 }, loading: false, error: null, status: 200, key });
       return;
     }

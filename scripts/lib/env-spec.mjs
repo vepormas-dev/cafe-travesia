@@ -69,6 +69,8 @@ export const VARS = [
   { name: 'OPENAI_API_KEY', group: 'ai', required: 'opt', secret: true, example: 'sk-proj-XXXXXXXXXXXXXXXX', desc: 'Clave de la API de IA. Sin clave: chatbot, búsqueda y tutor responden por reglas.', source: 'platform.openai.com › API keys (o el proveedor compatible).', envs: 'P (V opcional)' },
   { name: 'OPENAI_BASE_URL', group: 'ai', required: 'opt', example: 'https://api.openai.com/v1', default: 'https://api.openai.com/v1', desc: 'URL base de una API compatible con OpenAI (sin "/" final).', source: 'Proveedor.', envs: 'P, V', pattern: /^https:\/\/.+[^/]$/ },
   { name: 'OPENAI_MODEL', group: 'ai', required: 'opt', example: 'gpt-4.1-mini', default: 'gpt-4.1-mini', desc: 'Modelo de chat.', source: 'Proveedor.', envs: 'P, V' },
+  { name: 'OPENAI_FALLBACK_MODEL', group: 'ai', required: 'opt', example: 'gemini-3.5-flash-lite', desc: 'Modelo de respaldo si el principal responde 429/5xx o no contesta.', source: 'Proveedor.', envs: 'P, V' },
+  { name: 'OPENAI_REASONING_EFFORT', group: 'ai', required: 'opt', example: 'low', desc: 'Solo modelos de razonamiento (Gemini 2.5+/3, o-series): none, low, medium o high.', source: 'Proveedor.', envs: 'P, V' },
 
   // --- Operación ----------------------------------------------------------------
   { name: 'CRON_SECRET', group: 'ops', required: 'prod', secret: true, example: '<64 caracteres hex de scripts/gen-secrets.sh>', desc: 'Protege /api/cron. Vercel Cron lo envía solo como "Authorization: Bearer"; el cron de cPanel usa el mismo valor.', source: 'scripts/gen-secrets.sh.', envs: 'P (V con otro valor)', pattern: /^.{16,}$/, hint: 'mínimo 16 caracteres (Vercel)' },

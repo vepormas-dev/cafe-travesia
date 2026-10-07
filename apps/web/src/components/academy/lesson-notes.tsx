@@ -31,6 +31,7 @@ export function LessonNotes({ lessonId, controls, loggedIn, demo, loginHref }: {
   }, [url]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- carga inicial de las notas del usuario al montar
     if (loggedIn && !demo) void load();
   }, [load, loggedIn, demo]);
 
