@@ -16,6 +16,12 @@ function ct_config(): array
         if (!is_file($path)) {
             ct_json(500, ['ok' => false, 'error' => 'Pasarela sin config.php']);
         }
+        // Sin esto, opcache puede seguir sirviendo una versión vieja de config.php (p. ej. con
+        // allow_ddl=true) durante opcache.revalidate_freq segundos, o indefinidamente si el hosting
+        // desactiva validate_timestamps.
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate($path, true);
+        }
         $cfg = require $path;
     }
     return $cfg;
