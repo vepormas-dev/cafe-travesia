@@ -482,7 +482,7 @@ export async function HomeExperiences() {
             return (
               <li key={e.id}>
                 <Link href={`/tienda/${e.slug}`} className="group relative flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[2rem]">
-                  {e.imageUrl ? <Image src={e.imageUrl} alt="" fill sizes="(min-width: 768px) 45vw, 92vw" className="object-cover transition duration-700 group-hover:scale-105" /> : null}
+                  {e.imageUrl ? <Image src={e.imageUrl} alt="" fill sizes="(min-width: 768px) 45vw, 92vw" className="z-0 object-cover transition duration-700 group-hover:scale-105" /> : null}
                   <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-noche-950/95 via-noche-950/40 to-transparent" />
                   <div className="relative p-7 sm:p-9">
                     {e.badges[0] ? <span className="mb-3 inline-block rounded-full bg-ambar px-3 py-1 text-[0.65rem] font-bold tracking-wider text-noche uppercase">{e.badges[0]}</span> : null}

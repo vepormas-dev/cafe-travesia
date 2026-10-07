@@ -35,7 +35,7 @@ export async function subscriptionAction(id: string, input: z.input<typeof subAc
 
 export async function chargeSubscriptionNow(id: string) {
   return runAction({ admin: true }, async ({ user }) => {
-    const r = await chargeSubscription(id);
+    const r = await chargeSubscription(id, { force: true });
     if (!r) throw new ActionError('No se puede cobrar: la suscripción está cancelada, pausada o sin tarjeta.');
     await audit(user.id, 'subscription.charge_now', 'subscription', id, r);
     revalidatePath(`/admin/suscripciones/${id}`);

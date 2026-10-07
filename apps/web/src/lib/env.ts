@@ -1,5 +1,5 @@
 /**
- * Variables de entorno (ver apps/web/.env.example y docs/deploy/02-variables.md).
+ * Variables de entorno (ver apps/web/.env.example y docs/deploy/variables.md).
  * Todo es opcional para compilar: sin credenciales el sitio corre en MODO DEMO
  * (catálogo de ejemplo, sin pagos ni escritura).
  */
@@ -16,7 +16,7 @@ export const env = {
   isProd: process.env.VERCEL_ENV === 'production',
 
   // Pasarela cPanel (BD + medios)
-  gatewayUrl: v('MEDIA_GATEWAY_URL') ?? v('DB_GATEWAY_URL'),
+  gatewayUrl: (v('MEDIA_GATEWAY_URL') ?? v('DB_GATEWAY_URL'))?.replace(/\/+$/, ''),
   gatewaySecret: v('DB_GATEWAY_SECRET'),
 
   // Firebase (cliente público + Admin SDK)

@@ -89,14 +89,14 @@ En el primer build de iOS, inicia sesión con el Apple ID del cliente (o un usua
 - App Store › *Privacidad de la app* y Play › *Seguridad de los datos*. Datos recogidos: nombre, correo, teléfono, dirección de envío, historial de compras, identificadores (token push) y contenido de soporte (chat). Uso: funcionalidad de la app y atención al cliente. No hay seguimiento publicitario. Los pagos los procesa Wompi: la app no almacena tarjetas.
 - **Google Play, cuentas personales nuevas:** antes de producción exige una **prueba cerrada con al menos 12 testers durante 14 días** seguidos ([política](https://support.google.com/googleplay/android-developer/answer/14151465)). Las cuentas de organización no tienen este requisito. Planea el calendario según el tipo de cuenta.
 
-## 6. Eliminación de cuenta (obligatoria) — FALTA EN EL CÓDIGO
+## 6. Eliminación de cuenta (obligatoria)
 
-- **Apple** (guía 5.1.1(v)): si la app permite crear cuentas, debe permitir **iniciar la eliminación desde la app**. Con Sign in with Apple, además hay que revocar el token ([Firebase](https://firebase.google.com/docs/auth/web/apple)).
-- **Google Play:** exige una ruta dentro de la app **y** un **enlace web** donde se pueda pedir la eliminación sin reinstalar la app, declarado en *Seguridad de los datos* ([política](https://support.google.com/googleplay/android-developer/answer/13327111?hl=es)).
-- **Estado actual:** no existe endpoint `DELETE /api/v1/me` (`apps/web/src/app/api/v1/me/route.ts` solo tiene GET y PATCH). Tampoco hay opción en `apps/mobile/src/app/(tabs)/perfil.tsx` ni una página web de solicitud. **Bloquea la publicación** en ambas tiendas. Propuesta para los equipos web y móvil:
-  - `DELETE /api/v1/me`: anonimizar el usuario y los pedidos (conservar los datos contables), revocar sesiones, borrar los tokens push y anular las fuentes de pago de Wompi.
-  - En la app: la opción «Eliminar mi cuenta» en Perfil, con reautenticación y la revocación de Apple.
-  - En la web: `/cuenta/eliminar` o una sección en `/privacidad` con un formulario o un correo.
+- **Apple** (guía 5.1.1(v)) y **Google Play** ([política](https://support.google.com/googleplay/android-developer/answer/13327111?hl=es)) exigen poder eliminar la cuenta desde la app y, en Google, también desde un enlace web.
+- **Implementado:**
+  - `DELETE /api/v1/me { "confirm": "ELIMINAR" }` (`apps/web/src/lib/account-deletion.ts`). Borra direcciones, dispositivos push, carrito, notas y notificaciones. Cancela las suscripciones y anula sus tarjetas en Wompi, revoca inscripciones y certificados, anonimiza el usuario y elimina la identidad en Firebase. Los pedidos se conservan sin vínculo a la cuenta, por obligación contable.
+  - App: Perfil › «Eliminar mi cuenta», con confirmación.
+  - Web: `https://cafetravesia.co/cuenta/perfil` › «Eliminar cuenta». Declara esta URL en *Seguridad de los datos* de Play Console y en App Store Connect.
+- **Pendiente:** la revocación del token de *Sign in with Apple* (`revokeAccessToken` de Firebase con el `authorizationCode`). Apple la recomienda; agrégala antes de enviar a revisión si usas Apple Sign-In en producción.
 
 ## 7. Versiones y actualizaciones OTA
 
@@ -122,7 +122,7 @@ En el primer build de iOS, inicia sesión con el Apple ID del cliente (o un usua
 | `eas build` iOS: «No Apple Developer team» | Usuario sin rol en la cuenta del cliente | Invitación en App Store Connect con rol Admin o App Manager |
 | Login con Google falla en Android | SHA-1 del keystore de EAS o de la firma de Play sin registrar en Firebase/Google Cloud | `eas credentials` › Android › muestra el SHA-1. Agrégalo junto con el de *Integridad de la app* |
 | No hay token push | Falta `projectId`, o se usa Expo Go | §1. Usa un build de desarrollo o preview |
-| Rechazo de Apple 5.1.1(v) | No hay eliminación de cuenta | §6 |
+| Rechazo de Apple 5.1.1(v) | Eliminación de cuenta no encontrada o sin revocar token de Apple | §6 |
 | Rechazo de Apple 4.8 / 4.0 | Falta Sign in with Apple o se ve como una web empaquetada | Ya está Apple. Destaca las funciones nativas (push, Academia) en las notas de revisión |
 | Play: «Se requiere una prueba cerrada» | Cuenta personal nueva | §5 (12 testers, 14 días) |
 | El retorno de Wompi no cierra el navegador | La página `/tienda/pago?app=1` no redirige a `cafetravesia://pago` | Revísalo con el equipo web (contrato en `docs/API.md`) |

@@ -4,7 +4,8 @@
  *
  *   DB_DRIVER=gateway DB_GATEWAY_URL=https://gateway.cafetravesia.co DB_GATEWAY_SECRET=... npm run db:migrate
  *
- * Alternativa manual: importar migrations/*.sql en phpMyAdmin (en orden).
+ * Alternativa manual (phpMyAdmin): `node scripts/sql-bundle.mjs --out cafe-travesia.sql` en la raíz del
+ * repo genera un único SQL importable (los archivos de migrations/ no se importan directo).
  */
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -15,7 +16,10 @@ const dir = join(dirname(fileURLToPath(import.meta.url)), '..', 'migrations');
 
 export async function migrate(log = console.log) {
   if (!isDbConfigured()) throw new Error('Configura DB_DRIVER y sus credenciales antes de migrar.');
-  await rawQuery(
+  const [exists] = await rawQuery<{ n: number }>(
+    "SELECT COUNT(*) AS n FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = '_migrations'",
+  );
+  if (!Number(exists?.n)) await rawQuery(
     'CREATE TABLE IF NOT EXISTS `_migrations` (`name` varchar(191) NOT NULL PRIMARY KEY, `applied_at` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci',
   );
   const applied = new Set((await rawQuery<{ name: string }>('SELECT name FROM `_migrations`')).map((r) => r.name));

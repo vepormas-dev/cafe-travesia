@@ -143,7 +143,7 @@ try {
   const s2b = run('node', [join(scripts, 'gateway-smoke.mjs'), '--no-apache', '--expect-ddl', 'allowed'], gwEnv);
   check(s2b.status === 1 && /allow_ddl=false/.test(s2b.stdout), 'gateway-smoke detecta allow_ddl distinto al esperado');
   const mig2 = run('npx', ['tsx', join(root, 'packages', 'db', 'scripts', 'migrate.ts')], { DB_DRIVER: 'gateway', ...gwEnv });
-  check(mig2.status !== 0 && /DDL deshabilitado/.test(mig2.stdout + mig2.stderr), 'db:migrate con allow_ddl=false falla (requiere activarlo aunque no haya pendientes)');
+  check(mig2.status === 0 && /al día/.test(mig2.stdout), 'db:migrate con allow_ddl=false y nada pendiente termina bien (no ejecuta DDL)', (mig2.stdout + mig2.stderr).slice(0, 300));
 
   // 3e. Secreto incorrecto
   const s3 = run('node', [join(scripts, 'gateway-smoke.mjs'), '--no-apache'], { ...gwEnv, DB_GATEWAY_SECRET: 'x'.repeat(96) });

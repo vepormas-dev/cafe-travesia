@@ -81,8 +81,8 @@ export async function runHealthChecks(): Promise<HealthCheck[]> {
   checks.push({
     key: 'wompi',
     label: 'Pagos Wompi',
-    status: isWompiConfigured() ? (env.wompi.env === 'production' ? 'ok' : 'warn') : 'off',
-    detail: isWompiConfigured() ? (env.wompi.env === 'production' ? 'Producción' : 'Sandbox (pruebas)') : 'Sin llaves',
+    status: isWompiConfigured() ? (!env.wompi.eventsSecret ? 'error' : env.wompi.env === 'production' ? 'ok' : 'warn') : 'off',
+    detail: isWompiConfigured() ? (!env.wompi.eventsSecret ? 'Falta WOMPI_EVENTS_SECRET: los webhooks se rechazarán' : env.wompi.env === 'production' ? 'Producción' : 'Sandbox (pruebas)') : 'Sin llaves',
   });
   checks.push({ key: 'email', label: 'Correo SMTP', status: isEmailConfigured() ? 'ok' : 'off', detail: isEmailConfigured() ? `${env.smtp.host}:${env.smtp.port}` : 'Sin SMTP: no se envían correos' });
   checks.push({ key: 'ai', label: 'Motor de IA', status: isAiConfigured() ? 'ok' : 'warn', detail: isAiConfigured() ? env.ai.model : 'Sin clave: respuestas por reglas' });

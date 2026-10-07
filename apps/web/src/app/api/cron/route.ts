@@ -19,7 +19,7 @@ export const maxDuration = 60;
 async function run(req: Request) {
   const auth = req.headers.get('authorization');
   const url = new URL(req.url);
-  if (!env.cronSecret || (auth !== `Bearer ${env.cronSecret}` && url.searchParams.get('key') !== env.cronSecret)) {
+  if (!env.cronSecret || auth !== `Bearer ${env.cronSecret}`) {
     return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
   }
   if (!isDbConfigured()) return NextResponse.json({ error: 'Sin base de datos' }, { status: 503 });

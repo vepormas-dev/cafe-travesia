@@ -34,9 +34,8 @@ export async function HomeSeasonal() {
       {/* Diagonal de luz y patrón */}
       <div aria-hidden className="absolute inset-0 bg-[linear-gradient(160deg,transparent_55%,rgb(255_255_255/0.08)_55%)]" />
       <div aria-hidden className="bg-andino absolute inset-x-0 bottom-0 h-10 opacity-30" />
-      <div className="container-site relative grid items-center gap-10 py-20 lg:grid-cols-[1.25fr_0.75fr] lg:py-28">
-        <div>
-          <h2 id="temporada-title" className={`leading-[0.82] ${ink}`}>
+      <div className="container-site relative grid items-center gap-x-10 gap-y-8 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:py-28">
+        <h2 id="temporada-title" className={`leading-[0.82] lg:col-span-2 ${ink}`}>
             <span className="block font-display text-6xl font-normal italic sm:text-8xl lg:text-[8.5rem]" style={{ color: accent }}>
               Edición
             </span>
@@ -44,7 +43,8 @@ export async function HomeSeasonal() {
               Temporada
             </span>
           </h2>
-          <p className="mt-6 font-display text-3xl sm:text-4xl">{p.name}</p>
+        <div>
+          <p className="font-display text-3xl sm:text-4xl">{p.name}</p>
           <p className="mt-2 max-w-lg text-lg opacity-85">{s.subtitle || p.subtitle}</p>
           <ul className="mt-6 flex flex-wrap gap-2" aria-label="Notas de cata">
             {p.tastingNotes.map((n) => (
@@ -79,12 +79,12 @@ export async function HomeSeasonal() {
             ) : null}
           </div>
         </div>
-        <div className="relative mx-auto w-[68%] max-w-[380px] lg:w-full">
+        <div className="relative mx-auto w-[72%] max-w-[400px] lg:-mt-6 lg:w-[88%]">
           <div aria-hidden className="absolute inset-[8%] rounded-full blur-3xl" style={{ backgroundColor: accent, opacity: 0.35 }} />
           <div className="relative rotate-[4deg] transition duration-700 hover:rotate-0">
-            <CoffeeBag color={light ? shade(bg, -0.25) : shade(bg, 0.14)} accent={accent} name={p.name} origin={p.originRegion} className="drop-shadow-[0_40px_50px_rgba(0,0,0,0.4)]" />
+            <CoffeeBag color={light ? shade(bg, -0.35) : shade(bg, -0.32)} accent={accent} name={p.name} origin={p.originRegion} className="drop-shadow-[0_40px_50px_rgba(0,0,0,0.4)]" />
           </div>
-          <p className="absolute -bottom-2 -left-4 rotate-[-6deg] font-script text-3xl sm:text-4xl" style={{ color: accent }}>
+          <p className="relative mt-6 rotate-[-4deg] text-center font-script text-3xl sm:text-4xl" style={{ color: accent }}>
             ¡Cuando se acaba, se acaba!
           </p>
         </div>

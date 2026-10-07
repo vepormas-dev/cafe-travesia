@@ -73,6 +73,8 @@ export const VARS = [
   // --- Operación ----------------------------------------------------------------
   { name: 'CRON_SECRET', group: 'ops', required: 'prod', secret: true, example: '<64 caracteres hex de scripts/gen-secrets.sh>', desc: 'Protege /api/cron. Vercel Cron lo envía solo como "Authorization: Bearer"; el cron de cPanel usa el mismo valor.', source: 'scripts/gen-secrets.sh.', envs: 'P (V con otro valor)', pattern: /^.{16,}$/, hint: 'mínimo 16 caracteres (Vercel)' },
   { name: 'REVALIDATE_SECRET', group: 'ops', required: 'opt', secret: true, example: '<64 caracteres hex>', desc: 'Reservada (env.ts la lee, pero ninguna ruta la usa todavía).', source: 'scripts/gen-secrets.sh.', envs: 'P, V' },
+  { name: 'APPLE_TEAM_ID', group: 'ops', required: 'opt', example: 'ABCDE12345', desc: 'Team ID de Apple Developer; publica /.well-known/apple-app-site-association para Universal Links de la app iOS.', source: 'developer.apple.com › Membership details.', envs: 'P', pattern: /^[A-Z0-9]{10}$/, hint: '10 caracteres A-Z/0-9' },
+  { name: 'ANDROID_SHA256_FINGERPRINTS', group: 'ops', required: 'opt', example: 'AB:CD:…:EF', desc: 'Huellas SHA-256 del certificado de firma Android (separadas por coma) para /.well-known/assetlinks.json (App Links).', source: 'eas credentials › Android, o Play Console › Integridad de la app.', envs: 'P' },
   { name: 'EXPO_ACCESS_TOKEN', group: 'ops', required: 'opt', secret: true, example: '<token de expo.dev>', desc: 'Solo si activas "Enhanced push security" en EAS: entonces es OBLIGATORIO o los push fallan con UNAUTHORIZED.', source: 'expo.dev › Account settings › Access tokens.', envs: 'P' },
 
   // --- Build / pruebas (no se configuran en Vercel) ----------------------------

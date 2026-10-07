@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Platform, StyleSheet, Switch, View } from 'react-native';
+import { Alert, Platform, StyleSheet, Switch, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
@@ -7,7 +7,7 @@ import { formatCOP, formatNumber, initials, LOYALTY } from '@travesia/shared';
 
 import { AndeanPattern, Logo } from '@/components/brand';
 import { Button, Card, DemoNotice, ListItem, Screen, T } from '@/components/ui';
-import { useApiMode } from '@/lib/api';
+import { api, errorMessage, useApiMode } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 import { env } from '@/lib/env';
 import { haptic } from '@/lib/haptics';
@@ -120,7 +120,7 @@ export default function Perfil() {
         <Card style={{ paddingVertical: 4 }}>
           <ListItem icon="document-text-outline" title="Términos y condiciones" onPress={() => void openWeb('/terminos')} right={<View />} />
           <ListItem icon="shield-checkmark-outline" title="Política de tratamiento de datos" onPress={() => void openWeb('/privacidad')} right={<View />} />
-          <ListItem icon="return-down-back-outline" title="Envíos, cambios y devoluciones" onPress={() => void openWeb('/envios')} right={<View />} />
+          <ListItem icon="return-down-back-outline" title="Envíos, cambios y devoluciones" onPress={() => void openWeb('/envios-y-devoluciones')} right={<View />} />
           <ListItem icon="storefront-outline" title="Visítanos en Florida, Medellín" onPress={() => void openWeb('/tiendas')} right={<View />} />
         </Card>
 
@@ -133,6 +133,36 @@ export default function Perfil() {
               haptic.warning();
               await signOut();
             }}
+          />
+        ) : null}
+        {signedIn ? (
+          <ListItem
+            icon="trash-outline"
+            title="Eliminar mi cuenta"
+            subtitle="Borra tus datos, cancela suscripciones y anula tarjetas guardadas"
+            onPress={() =>
+              Alert.alert(
+                '¿Eliminar tu cuenta?',
+                'Perderás tus cursos, certificados y puntos. Cancelaremos tus suscripciones. Conservamos solo el registro de compras que exige la ley. No se puede deshacer.',
+                [
+                  { text: 'Cancelar', style: 'cancel' },
+                  {
+                    text: 'Eliminar',
+                    style: 'destructive',
+                    onPress: async () => {
+                      try {
+                        haptic.warning();
+                        await api.del('/api/v1/me', { confirm: 'ELIMINAR' });
+                        await signOut();
+                        Alert.alert('Cuenta eliminada', 'Eliminamos tu cuenta y tus datos personales.');
+                      } catch (e) {
+                        Alert.alert('No pudimos eliminar tu cuenta', errorMessage(e));
+                      }
+                    },
+                  },
+                ],
+              )
+            }
           />
         ) : null}
 

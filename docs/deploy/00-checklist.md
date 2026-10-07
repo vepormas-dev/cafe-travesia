@@ -67,7 +67,7 @@
 
 - [ ] Un push de prueba (campaña desde el CMS a un segmento con tu dispositivo) **llega** a un iPhone y a un Android físicos. En `push_deliveries` queda `status=ok`.
 - [ ] Builds de `production` aprobados en TestFlight y en la prueba interna de Play. El inicio de sesión, la compra (Wompi en navegador) y el regreso a la app con `cafetravesia://pago` funcionan.
-- [ ] Existe la **eliminación de cuenta** desde la app y una URL web para solicitarla, exigida por Apple y Google. Ver 10 §6: **hoy falta en el código**.
+- [ ] Existe la **eliminación de cuenta** desde la app y una URL web para solicitarla, exigida por Apple y Google. Implementada en Perfil (app) y `/cuenta/perfil` (web); probar con una cuenta de prueba (10 §6).
 
 ## J. Operación y seguridad (11, 12)
 

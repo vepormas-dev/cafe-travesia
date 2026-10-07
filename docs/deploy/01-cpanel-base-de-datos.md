@@ -80,7 +80,7 @@ npm run db:seed
 ✓ Contenido inicial cargado
 ```
 
-Volver a correr el comando es seguro: solo aplica lo pendiente y el seed usa `INSERT IGNORE`. **Ojo:** `db:migrate` siempre ejecuta `CREATE TABLE IF NOT EXISTS _migrations`, así que **falla con `allow_ddl=false` aunque no haya nada pendiente**. Esto se verificó con `scripts/selftest.mjs`.
+Volver a correr el comando es seguro: solo aplica lo pendiente y el seed usa `INSERT IGNORE`. Si no hay nada pendiente, `db:migrate` no ejecuta DDL y funciona con `allow_ddl=false`. Para aplicar migraciones nuevas sí debes activar `allow_ddl=true` temporalmente. Ambos casos se verifican en `scripts/selftest.mjs`.
 
 3. Vuelve a poner `'allow_ddl' => false,` en `config.php` y comprueba:
 

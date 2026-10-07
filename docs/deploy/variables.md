@@ -91,6 +91,8 @@ node scripts/check-env.mjs -f .work/.env.preview --target preview
 |---|---|---|---|---|---|
 | `CRON_SECRET` 🔒 | `<64 caracteres hex de scripts/gen-secrets.sh>` | Sí | P (V con otro valor) | Protege /api/cron. Vercel Cron lo envía solo como "Authorization: Bearer"; el cron de cPanel usa el mismo valor. | scripts/gen-secrets.sh. |
 | `REVALIDATE_SECRET` 🔒 | `<64 caracteres hex>` | No | P, V | Reservada (env.ts la lee, pero ninguna ruta la usa todavía). | scripts/gen-secrets.sh. |
+| `APPLE_TEAM_ID` | `ABCDE12345` | No | P | Team ID de Apple Developer; publica /.well-known/apple-app-site-association para Universal Links de la app iOS. | developer.apple.com › Membership details. |
+| `ANDROID_SHA256_FINGERPRINTS` | `AB:CD:…:EF` | No | P | Huellas SHA-256 del certificado de firma Android (separadas por coma) para /.well-known/assetlinks.json (App Links). | eas credentials › Android, o Play Console › Integridad de la app. |
 | `EXPO_ACCESS_TOKEN` 🔒 | `<token de expo.dev>` | No | P | Solo si activas "Enhanced push security" en EAS: entonces es OBLIGATORIO o los push fallan con UNAUTHORIZED. | expo.dev › Account settings › Access tokens. |
 
 ### Build / pruebas

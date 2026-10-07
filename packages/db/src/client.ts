@@ -12,7 +12,6 @@
  */
 import { createHmac } from 'node:crypto';
 import { drizzle as drizzleProxy, type MySqlRemoteDatabase } from 'drizzle-orm/mysql-proxy';
-import type { SQLWrapper } from 'drizzle-orm';
 import * as schema from './schema';
 
 export type Database = MySqlRemoteDatabase<typeof schema>;
@@ -180,7 +179,7 @@ export function getDb(): Database {
  * Uso: await atomic([db.insert(t).values(v), db.update(t2).set(...).where(...)])
  * Las sentencias se compilan con toSQL(); no devuelve filas.
  */
-export type AtomicQuery = SQLWrapper & { toSQL(): { sql: string; params: unknown[] } };
+export type AtomicQuery = { toSQL(): { sql: string; params: unknown[] } };
 export async function atomic(queries: AtomicQuery[]) {
   const statements: Statement[] = queries.map((q) => {
     const { sql, params } = q.toSQL();

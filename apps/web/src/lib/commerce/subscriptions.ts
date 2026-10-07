@@ -61,16 +61,21 @@ export async function createSubscription(input: SubscribeInput, user: SessionUse
 }
 
 /** Cobra un ciclo. El resultado definitivo llega por webhook (applySubscriptionCharge). */
-export async function chargeSubscription(subscriptionId: string) {
+export async function chargeSubscription(subscriptionId: string, opts: { force?: boolean } = {}) {
   const db = getDb();
+  if (opts.force) await db.update(t.subscriptions).set({ nextBillingAt: new Date(Date.now() - 1000) }).where(eq(t.subscriptions.id, subscriptionId));
   const [sub] = await db.select().from(t.subscriptions).where(eq(t.subscriptions.id, subscriptionId)).limit(1);
   if (!sub || !sub.wompiPaymentSourceId || sub.status === 'cancelled' || sub.status === 'paused') return null;
+  // Bloqueo condicional: solo UNA ejecución (cron de Vercel, cron de cPanel o alta) toma este ciclo
+  const lock = await db
+    .update(t.subscriptions)
+    .set({ nextBillingAt: new Date(Date.now() + DAY) })
+    .where(and(eq(t.subscriptions.id, subscriptionId), inArray(t.subscriptions.status, ['pending', 'active', 'past_due']), lte(t.subscriptions.nextBillingAt, new Date())));
+  if ((lock as unknown as [{ affectedRows: number }])[0]?.affectedRows !== 1) return null;
   const [user] = await db.select().from(t.users).where(eq(t.users.id, sub.userId)).limit(1);
   const chargeId = crypto.randomUUID();
   const reference = `SUB-${chargeId}`;
   await db.insert(t.subscriptionCharges).values({ id: chargeId, subscriptionId, amountCop: sub.priceCop, status: 'pending', attempt: sub.failedAttempts + 1 });
-  // Evitar doble cobro si el cron corre en paralelo: mover next_billing_at a futuro de inmediato
-  await db.update(t.subscriptions).set({ nextBillingAt: new Date(Date.now() + DAY) }).where(eq(t.subscriptions.id, subscriptionId));
   try {
     const tx = await chargePaymentSource({ paymentSourceId: sub.wompiPaymentSourceId, amountCop: sub.priceCop, reference, email: user!.email });
     await db.update(t.subscriptionCharges).set({ wompiTransactionId: tx.id }).where(eq(t.subscriptionCharges.id, chargeId));
