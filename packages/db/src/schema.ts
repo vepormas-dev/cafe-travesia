@@ -719,8 +719,10 @@ export const chatSessions = mysqlTable(
     status: mysqlEnum('status', ['bot', 'human_requested', 'human', 'closed']).notNull().default('bot'),
     assignedTo: ref('assigned_to'),
     summary: text('summary'),
+    // La columna física es created_at: se actualiza con cada mensaje y hace de "último mensaje".
+    // (Antes había también un campo createdAt sobre la misma columna y el INSERT la repetía → 500 en /api/chat.)
+    // La hora de inicio de la conversación es la del primer chat_messages de la sesión.
     lastMessageAt: createdAt(),
-    createdAt: datetime('created_at', { mode: 'date', fsp: 3 }).notNull().default(sql`CURRENT_TIMESTAMP(3)`),
   },
   (t) => [index('chat_status').on(t.status, t.lastMessageAt), index('chat_visitor').on(t.visitorId)],
 );
