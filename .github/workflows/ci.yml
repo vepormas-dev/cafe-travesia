@@ -1,0 +1,101 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop, 'feat/**', 'fix/**']
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '22'
+  # Sin variables de la app: todo corre en MODO DEMO (así debe compilar).
+  NEXT_TELEMETRY_DISABLED: '1'
+
+jobs:
+  typecheck-and-unit:
+    name: Tipos y pruebas unitarias
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Tipos · packages/shared
+        working-directory: packages/shared
+        run: npx tsc --noEmit
+      - name: Tipos · packages/db
+        working-directory: packages/db
+        run: npx tsc --noEmit
+      - name: Tipos · apps/web
+        working-directory: apps/web
+        run: npx tsc --noEmit
+      - name: Tipos · apps/mobile
+        working-directory: apps/mobile
+        run: npx tsc --noEmit
+      - name: Pruebas · @travesia/shared
+        run: npm run test -w @travesia/shared
+      - name: Ayuda de los scripts de despliegue
+        run: |
+          bash -n scripts/gen-secrets.sh scripts/backup-mysql.sh
+          for s in scripts/gen-secrets.sh scripts/backup-mysql.sh; do bash "$s" --help > /dev/null; done
+          for s in check-env gateway-smoke smoke-prod sql-bundle selftest; do node "scripts/$s.mjs" --help > /dev/null; done
+          node scripts/check-env.mjs -f apps/web/.env.example --target development
+
+  db-integration:
+    name: Integración BD (MySQL real + pasarela PHP)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pdo_mysql, fileinfo, mbstring
+          coverage: none
+          tools: none
+      - name: Dependencias del sistema (xz para descomprimir MySQL, libncurses para el cliente mysql)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq xz-utils libncurses6 > /dev/null
+      - run: npm ci
+      - name: Caché de binarios de MySQL (mysql-memory-server)
+        uses: actions/cache@v4
+        with:
+          path: /tmp/mysqlmsn/binaries
+          key: mysqlmsn-${{ runner.os }}-8.4
+      - name: npm run test -w @travesia/db
+        run: npm run test -w @travesia/db
+      - name: Autoprueba de scripts de despliegue
+        run: node scripts/selftest.mjs
+
+  build-web-demo:
+    name: Build web (modo demo, sin variables)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Caché de Next.js
+        uses: actions/cache@v4
+        with:
+          path: apps/web/.next/cache
+          key: next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('apps/web/src/**', 'packages/*/src/**') }}
+          restore-keys: next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+      - name: next build (con chequeo de tipos)
+        working-directory: apps/web
+        run: npx next build

@@ -21,3 +21,4 @@ service-account*.json
 google-services.json
 GoogleService-Info.plist
 infra/cpanel/gateway/config.php
+google-service-account*.json
