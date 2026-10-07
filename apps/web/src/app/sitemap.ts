@@ -1,8 +1,14 @@
 import type { MetadataRoute } from 'next';
+import { cacheLife, cacheTag } from 'next/cache';
 import { env } from '@/lib/env';
+import { TAGS } from '@/lib/data/tags';
 import { getCourses, getPlans, getPosts, getProducts } from '@/lib/data/catalog';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  'use cache';
+  // Sin esto el sitemap queda congelado con los datos del build; así se renueva con el catálogo
+  cacheLife('hours');
+  cacheTag(TAGS.products, TAGS.courses, TAGS.plans, TAGS.posts);
   const base = env.siteUrl;
   const [products, courses, plans, posts] = await Promise.all([getProducts(), getCourses(), getPlans(), getPosts()]);
   const page = (path: string, priority: number, changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] = 'weekly') => ({ url: `${base}${path}`, changeFrequency, priority });
