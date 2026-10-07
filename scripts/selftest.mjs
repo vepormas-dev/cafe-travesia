@@ -42,7 +42,7 @@ check(run('bash', [join(scripts, 'gen-secrets.sh'), '--nope']).status === 2, 'ge
 // 2. check-env.mjs
 const work = mkdtempSync(join(tmpdir(), 'ct-selftest-'));
 const sa = Buffer.from(JSON.stringify({ type: 'service_account', project_id: 'cafe-travesia-test', client_email: 'sdk@cafe-travesia-test.iam.gserviceaccount.com', private_key: '-----BEGIN PRIVATE KEY-----\nAAA\n-----END PRIVATE KEY-----\n' })).toString('base64');
-const goodEnv = `NEXT_PUBLIC_SITE_URL=https://cafetravesia.co
+const goodEnv = `NEXT_PUBLIC_SITE_URL=https://cafetravesia.com
 NEXT_PUBLIC_MEDIA_URL=https://media.cafetravesia.co
 NEXT_PUBLIC_WHATSAPP=573001112233
 DB_DRIVER=gateway
@@ -95,7 +95,7 @@ const secret = secrets.DB_GATEWAY_SECRET;
 const writeCfg = (allowDdl) =>
   writeFileSync(
     cfg,
-    `<?php return ['secret' => '${secret}', 'db' => ['host' => '127.0.0.1', 'port' => ${mysql.port}, 'name' => '${mysql.dbName}', 'user' => '${mysql.username}', 'pass' => ''], 'allow_ddl' => ${allowDdl}, 'max_skew' => 90, 'media' => ['dir' => '${mediaDir}', 'base_url' => 'http://127.0.0.1:${portMedia}', 'max_bytes' => 5000000, 'allowed_mime' => ['image/png', 'image/jpeg', 'application/pdf']], 'cors_origins' => ['https://cafetravesia.co']];\n`,
+    `<?php return ['secret' => '${secret}', 'db' => ['host' => '127.0.0.1', 'port' => ${mysql.port}, 'name' => '${mysql.dbName}', 'user' => '${mysql.username}', 'pass' => ''], 'allow_ddl' => ${allowDdl}, 'max_skew' => 90, 'media' => ['dir' => '${mediaDir}', 'base_url' => 'http://127.0.0.1:${portMedia}', 'max_bytes' => 5000000, 'allowed_mime' => ['image/png', 'image/jpeg', 'application/pdf']], 'cors_origins' => ['https://cafetravesia.com']];\n`,
   );
 writeCfg(true);
 spawnSync('mkdir', ['-p', mediaDir]);

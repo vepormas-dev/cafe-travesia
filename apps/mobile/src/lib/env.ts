@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 const trim = (s?: string) => (s ?? '').trim().replace(/\/+$/, '');
 
 export const env = {
-  apiUrl: trim(process.env.EXPO_PUBLIC_API_URL) || 'https://cafetravesia.co',
+  apiUrl: trim(process.env.EXPO_PUBLIC_API_URL) || 'https://cafetravesia.com',
   /** Fuerza el modo demo (útil para capturas y desarrollo sin backend). */
   forceDemo: process.env.EXPO_PUBLIC_DEMO === '1',
   firebase: {

@@ -11,7 +11,7 @@ const v = (k: string) => {
 };
 
 export const env = {
-  siteUrl: (v('NEXT_PUBLIC_SITE_URL') ?? 'https://cafetravesia.co').replace(/\/$/, ''),
+  siteUrl: (v('NEXT_PUBLIC_SITE_URL') ?? 'https://cafetravesia.com').replace(/\/$/, ''),
   mediaUrl: (v('NEXT_PUBLIC_MEDIA_URL') ?? 'https://media.cafetravesia.co').replace(/\/$/, ''),
   isProd: process.env.VERCEL_ENV === 'production',
 

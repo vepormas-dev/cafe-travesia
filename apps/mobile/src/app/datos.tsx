@@ -44,7 +44,7 @@ function Form() {
         throw new Error('Revisa los campos.');
       }
       setErrors({});
-      if (isDemo()) throw new Error('Modo demo: los cambios se habilitan al conectar con cafetravesia.co.');
+      if (isDemo()) throw new Error('Modo demo: los cambios se habilitan al conectar con cafetravesia.com.');
       return api.patch<{ user: MeDTO }>('/api/v1/me', parsed.data);
     },
     onSuccess: (r) => {

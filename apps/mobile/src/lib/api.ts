@@ -23,7 +23,7 @@ export class ApiError extends Error {
 }
 /** Escritura bloqueada: la app está en modo demo o el backend respondió 503. */
 export class DemoError extends ApiError {
-  constructor(message = 'Modo demo: esta acción se habilita cuando la app se conecta con cafetravesia.co.') {
+  constructor(message = 'Modo demo: esta acción se habilita cuando la app se conecta con cafetravesia.com.') {
     super(503, message);
   }
 }

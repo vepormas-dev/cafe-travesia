@@ -1,6 +1,6 @@
 /**
  * Traducción de rutas de la web (DEEP_LINKS de @travesia/shared, data.url de push, acciones del chat,
- * href de recomendaciones IA) a pantallas de la app. También acepta https://cafetravesia.co/... y cafetravesia://...
+ * href de recomendaciones IA) a pantallas de la app. También acepta https://cafetravesia.com/... (y el antiguo .co) y cafetravesia://...
  */
 import { router, type Href } from 'expo-router';
 import * as WebBrowser from 'expo-web-browser';
@@ -8,7 +8,7 @@ import * as WebBrowser from 'expo-web-browser';
 import { absoluteUrl, env } from './env';
 
 const hostOf = (u: string) => /^https?:\/\/([^/?#]+)/i.exec(u)?.[1]?.toLowerCase() ?? '';
-const HOSTS = new Set(['cafetravesia.co', 'www.cafetravesia.co', hostOf(env.apiUrl)]);
+const HOSTS = new Set(['cafetravesia.com', 'www.cafetravesia.com', 'cafetravesia.co', 'www.cafetravesia.co', hostOf(env.apiUrl)]);
 
 /** Devuelve la ruta interna de la app o null si debe abrirse en el navegador. */
 export function toAppRoute(input: string | null | undefined): string | null {

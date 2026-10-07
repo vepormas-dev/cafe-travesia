@@ -60,7 +60,7 @@ export function GooglePreview({ title, description, path }: { title: string; des
         <span className="grid size-7 place-items-center rounded-full bg-crema text-[0.7rem] font-bold text-noche">CT</span>
         <div className="leading-tight">
           <p className="text-[0.8rem] text-[#202124]">Café Travesía</p>
-          <p className="text-[0.72rem] text-[#4d5156]">https://cafetravesia.co{path}</p>
+          <p className="text-[0.72rem] text-[#4d5156]">https://cafetravesia.com{path}</p>
         </div>
       </div>
       <p className="mt-2 line-clamp-1 text-[1.15rem] text-[#1a0dab]">{title || 'Título de la página'}</p>

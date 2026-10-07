@@ -9,7 +9,7 @@ seguridad, redirecciones heredadas del WordPress, protecciones de /api/cron y de
 HTTPS/www y latencia.
 
 Argumentos:
-  URL                     Base del sitio (por defecto NEXT_PUBLIC_SITE_URL o https://cafetravesia.co)
+  URL                     Base del sitio (por defecto NEXT_PUBLIC_SITE_URL o https://cafetravesia.com)
 
 Opciones:
       --cron              Llama /api/cron?tasks=noop con "Authorization: Bearer $CRON_SECRET" y espera 200
@@ -25,8 +25,8 @@ Opciones:
 Variables: CRON_SECRET (para --cron), NEXT_PUBLIC_SITE_URL.
 
 Ejemplos:
-  node scripts/smoke-prod.mjs https://cafetravesia.co
-  CRON_SECRET=... node scripts/smoke-prod.mjs https://cafetravesia.co --cron --sitemap 20
+  node scripts/smoke-prod.mjs https://cafetravesia.com
+  CRON_SECRET=... node scripts/smoke-prod.mjs https://cafetravesia.com --cron --sitemap 20
   node scripts/smoke-prod.mjs https://cafe-travesia-git-develop-equipo.vercel.app --no-domain --demo-ok
 
 Salida: 0 si todo pasa, 1 si algo falla, 2 por uso incorrecto.`;
@@ -55,7 +55,7 @@ if (o.help) {
   console.log(HELP);
   process.exit(0);
 }
-const base = (parsed.positionals[0] ?? process.env.NEXT_PUBLIC_SITE_URL ?? 'https://cafetravesia.co').replace(/\/+$/, '');
+const base = (parsed.positionals[0] ?? process.env.NEXT_PUBLIC_SITE_URL ?? 'https://cafetravesia.com').replace(/\/+$/, '');
 let baseUrl;
 try {
   baseUrl = new URL(base);

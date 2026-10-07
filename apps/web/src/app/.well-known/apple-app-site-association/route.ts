@@ -1,6 +1,6 @@
 /**
  * Universal Links de iOS. Requiere APPLE_TEAM_ID (Apple Developer › Membership).
- * La app declara ios.associatedDomains = ["applinks:cafetravesia.co"].
+ * La app declara ios.associatedDomains = ["applinks:cafetravesia.com"].
  */
 export function GET() {
   const team = process.env.APPLE_TEAM_ID;

@@ -55,7 +55,7 @@ function ActivePlan({ sub }: { sub: SubscriptionDTO }) {
 
   const patch = useMutation({
     mutationFn: async (body: Action) => {
-      if (isDemo()) throw new Error('Modo demo: los cambios de suscripción se habilitan al conectar con cafetravesia.co.');
+      if (isDemo()) throw new Error('Modo demo: los cambios de suscripción se habilitan al conectar con cafetravesia.com.');
       return api.patch<{ subscription: SubscriptionDTO }>(`/api/subscriptions/${sub.id}`, body);
     },
     onSuccess: (_r, body) => {

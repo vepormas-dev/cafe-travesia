@@ -100,7 +100,7 @@ export function PaymentResult() {
         </div>
       ) : state === 'notfound' ? (
         <Panel icon={<XCircle className="size-12 text-cereza" aria-hidden />} title="No encontramos ese pedido" text="Revisa el enlace del correo de confirmación o escríbenos y lo buscamos por ti.">
-          <a href={whatsappUrl('Hola, necesito ayuda con un pago en cafetravesia.co')} className="btn-primary" target="_blank" rel="noopener noreferrer">
+          <a href={whatsappUrl('Hola, necesito ayuda con un pago en cafetravesia.com')} className="btn-primary" target="_blank" rel="noopener noreferrer">
             <MessageCircle className="size-4" aria-hidden /> Escribir por WhatsApp
           </a>
         </Panel>

@@ -30,7 +30,7 @@ export default function CourseScreen() {
 
   const enroll = useMutation({
     mutationFn: async () => {
-      if (isDemo()) throw new Error('Modo demo: la inscripción se habilita al conectar con cafetravesia.co.');
+      if (isDemo()) throw new Error('Modo demo: la inscripción se habilita al conectar con cafetravesia.com.');
       return api.post<{ ok: boolean; enrollmentId: string }>(`/api/courses/${course.data!.id}/enroll`);
     },
     onSuccess: () => {

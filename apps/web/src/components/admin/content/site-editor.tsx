@@ -287,7 +287,7 @@ export function SiteEditor({ sections, products, active, defaults }: { sections:
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {d.ogImage ? <img src={d.ogImage} alt="" className="aspect-[1200/630] w-full object-cover" /> : <div className="aspect-[1200/630] bg-crema" />}
                 <div className="bg-[#f0f2f5] p-3 text-xs">
-                  <p className="text-[#65676b] uppercase">cafetravesia.co</p>
+                  <p className="text-[#65676b] uppercase">cafetravesia.com</p>
                   <p className="font-semibold text-[#050505]">{d.title}</p>
                 </div>
               </div>

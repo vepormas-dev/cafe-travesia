@@ -364,7 +364,7 @@ export function DemoNotice({ dark, compact }: { dark?: boolean; compact?: boolea
         <T v="small" color={dark ? C.ambarClaro : C.tostado} style={{ fontFamily: F.bold }}>
           Modo demo.{' '}
         </T>
-        Datos de ejemplo; las compras y cambios se habilitan al conectar con cafetravesia.co. Toca para reintentar.
+        Datos de ejemplo; las compras y cambios se habilitan al conectar con cafetravesia.com. Toca para reintentar.
       </T>
     </Pressable>
   );

@@ -80,7 +80,7 @@ export default function SubscribeScreen() {
       if (!accept) e.accept = 'Debes aceptar los términos de Wompi y el tratamiento de datos';
       setErrors(e);
       if (Object.keys(e).length) throw new Error('Revisa los campos marcados.');
-      if (isDemo()) throw new Error('Modo demo: la suscripción se habilita cuando la app se conecta con cafetravesia.co.');
+      if (isDemo()) throw new Error('Modo demo: la suscripción se habilita cuando la app se conecta con cafetravesia.com.');
       if (!signedIn) throw new ApiError(401, 'Ingresa para suscribirte.');
       const acc = acceptance.data ?? (await request<Acceptance>('/api/wompi/acceptance'));
       const wompiApi = acc.env === 'production' ? 'https://production.wompi.co/v1' : 'https://sandbox.wompi.co/v1';

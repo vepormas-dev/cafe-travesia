@@ -43,7 +43,7 @@ function Content() {
         throw new Error('Revisa los campos.');
       }
       setErrors({});
-      if (isDemo()) throw new Error('Modo demo: las direcciones se guardan al conectar con cafetravesia.co.');
+      if (isDemo()) throw new Error('Modo demo: las direcciones se guardan al conectar con cafetravesia.com.');
       const body = { ...parsed.data, label: v.label || null, isDefault: v.isDefault };
       return editing!.id ? api.patch(`/api/v1/addresses/${editing!.id}`, body) : api.post('/api/v1/addresses', body);
     },

@@ -15,7 +15,7 @@
       "supportsTablet": false,
       "usesAppleSignIn": true,
       "associatedDomains": [
-        "applinks:cafetravesia.co"
+        "applinks:cafetravesia.com"
       ],
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
@@ -41,22 +41,22 @@
           "data": [
             {
               "scheme": "https",
-              "host": "cafetravesia.co",
+              "host": "cafetravesia.com",
               "pathPrefix": "/tienda"
             },
             {
               "scheme": "https",
-              "host": "cafetravesia.co",
+              "host": "cafetravesia.com",
               "pathPrefix": "/academia"
             },
             {
               "scheme": "https",
-              "host": "cafetravesia.co",
+              "host": "cafetravesia.com",
               "pathPrefix": "/cuenta"
             },
             {
               "scheme": "https",
-              "host": "cafetravesia.co",
+              "host": "cafetravesia.com",
               "pathPrefix": "/suscripciones"
             }
           ],

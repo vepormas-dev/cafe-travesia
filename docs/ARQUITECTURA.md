@@ -1,7 +1,7 @@
 # Arquitectura · Ecosistema Café Travesía
 
 ```
-                         cafetravesia.co  (DNS en cPanel)
+                         cafetravesia.com  (DNS en cPanel)
                                 │
         ┌───────────────────────┴───────────────────────────┐
         │                     VERCEL                         │

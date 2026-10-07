@@ -75,7 +75,7 @@ export function ProductEditor({ initial, isNew, isAdmin, demo }: { initial: Prod
                 placeholder="Travesía Caicedo"
               />
             </Field>
-            <Field label="Slug (URL)" name="slug" errors={e} hint={`cafetravesia.co/tienda/${p.slug || '…'}`}>
+            <Field label="Slug (URL)" name="slug" errors={e} hint={`cafetravesia.com/tienda/${p.slug || '…'}`}>
               <input value={p.slug} onChange={(ev) => { setSlugTouched(true); set('slug', ev.target.value.toLowerCase()); }} className={cn(inputCls, 'font-mono text-[0.82rem]')} />
             </Field>
             <Field label="Tipo" name="kind" errors={e}>

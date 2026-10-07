@@ -313,7 +313,7 @@ function Tutor({ lesson }: { lesson: LessonDTO }) {
   const ask = useMutation({
     mutationFn: async (question: string) => {
       if (isDemo()) {
-        return { answer: `Buena pregunta. En esta lección (“${lesson.title}”) la clave es: ${lesson.summary ?? 'practicar con atención'}. Cuando la app se conecte con cafetravesia.co te responderé con IA y con el contenido completo del curso.`, lessons: [], ai: false };
+        return { answer: `Buena pregunta. En esta lección (“${lesson.title}”) la clave es: ${lesson.summary ?? 'practicar con atención'}. Cuando la app se conecte con cafetravesia.com te responderé con IA y con el contenido completo del curso.`, lessons: [], ai: false };
       }
       return api.post<{ answer: string; lessons: { id: string; title: string }[]; ai: boolean }>('/api/ai/tutor', {
         lessonId: lesson.id,

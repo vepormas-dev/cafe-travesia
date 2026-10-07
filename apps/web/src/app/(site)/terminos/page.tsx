@@ -12,7 +12,7 @@ const MD = `
 
 ## 1. Quiénes somos
 
-Este sitio (cafetravesia.co), la app móvil y la Academia son operados por **Café Travesía** [CONFIRMAR CON EL CLIENTE: razón social, NIT, domicilio y correo de notificaciones judiciales], con origen en Caicedo, Antioquia, y punto de venta en el Parque Comercial Florida, Medellín.
+Este sitio (cafetravesia.com), la app móvil y la Academia son operados por **Café Travesía** [CONFIRMAR CON EL CLIENTE: razón social, NIT, domicilio y correo de notificaciones judiciales], con origen en Caicedo, Antioquia, y punto de venta en el Parque Comercial Florida, Medellín.
 
 Al navegar, crear una cuenta o comprar aceptas estos términos. Si no estás de acuerdo, por favor no uses el servicio.
 

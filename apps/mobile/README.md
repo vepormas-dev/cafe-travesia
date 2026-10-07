@@ -29,7 +29,7 @@ src/lib/queries.ts     hooks TanStack Query ('catalog' se persiste en AsyncStora
 src/lib/auth.tsx       Firebase Auth (correo, Google, Apple) + GET /api/v1/me
 src/lib/cart.ts        carrito CartLineInput persistido; sincroniza GET/PUT /api/cart con sesión
 src/lib/push.ts        expo-notifications: permisos, canal 'default', token Expo, registro y toques (data.url)
-src/lib/links.ts       DEEP_LINKS/URLs https://cafetravesia.co → pantallas
+src/lib/links.ts       DEEP_LINKS/URLs https://cafetravesia.com → pantallas
 src/components/        UI (tipografía, botones, chips…), marca (bolsa SVG, patrón andino), catálogo, formularios
 ```
 
@@ -37,7 +37,7 @@ src/components/        UI (tipografía, botones, chips…), marca (bolsa SVG, pa
 
 | Variable | Uso |
 |---|---|
-| `EXPO_PUBLIC_API_URL` | Backend (por defecto `https://cafetravesia.co`) |
+| `EXPO_PUBLIC_API_URL` | Backend (por defecto `https://cafetravesia.com`) |
 | `EXPO_PUBLIC_DEMO` | `1` fuerza el modo demo |
 | `EXPO_PUBLIC_FIREBASE_*` | Config de la app web de Firebase (apiKey, authDomain, projectId, appId, messagingSenderId, storageBucket) |
 | `EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID` | OAuth client tipo iOS (bundle `co.cafetravesia.app`). `app.config.ts` agrega su esquema invertido |
@@ -78,5 +78,5 @@ npx eas-cli@latest update --channel production                            # OTA 
 ```
 
 - En `eas.json`, completa `submit.production.ios.ascAppId` y agrega `google-service-account.json` para Play (no lo subas a git).
-- Universal links: `ios.associatedDomains` (`applinks:cafetravesia.co`) e `intentFilters` de Android requieren publicar `/.well-known/apple-app-site-association` y `/.well-known/assetlinks.json` en la web.
+- Universal links: `ios.associatedDomains` (`applinks:cafetravesia.com`) e `intentFilters` de Android requieren publicar `/.well-known/apple-app-site-association` y `/.well-known/assetlinks.json` en la web.
 - Íconos y splash: `assets/images/*` se generaron con Pillow desde `apps/web/public/brand/logotipo.png` y `logo-claro.png`.

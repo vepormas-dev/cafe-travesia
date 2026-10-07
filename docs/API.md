@@ -1,6 +1,6 @@
 # API de Café Travesía
 
-Base: `https://cafetravesia.co` (web y app móvil usan la misma API). JSON en UTF-8, fechas ISO 8601, dinero en **COP enteros**.
+Base: `https://cafetravesia.com` (web y app móvil usan la misma API). JSON en UTF-8, fechas ISO 8601, dinero en **COP enteros**.
 
 **Autenticación.**
 
@@ -44,7 +44,7 @@ Los tipos están en `packages/shared/src/api-types.ts` y las validaciones en `pa
 | GET | `/api/payments/verify?id=<txId>&pedido=<orderId>` | | `{ transactionStatus, order: { id, number, status, totalCop, kind, emailHint } }` |
 | POST | `/api/webhooks/wompi` | evento Wompi | `200` si se aplicó (firma verificada, idempotente) |
 
-Si el pago se hace en la app, Wompi redirige a `https://cafetravesia.co/tienda/pago?pedido=<id>&id=<txId>&app=1`. Esa página detecta `app=1` y abre `cafetravesia://pago?pedido=...` para cerrar el navegador de la app.
+Si el pago se hace en la app, Wompi redirige a `https://cafetravesia.com/tienda/pago?pedido=<id>&id=<txId>&app=1`. Esa página detecta `app=1` y abre `cafetravesia://pago?pedido=...` para cerrar el navegador de la app.
 
 ## Suscripciones
 

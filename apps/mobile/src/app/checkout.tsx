@@ -91,7 +91,7 @@ export default function CheckoutScreen() {
         throw new Error('Revisa los campos marcados.');
       }
       setErrors({});
-      if (isDemo()) throw new Error('Modo demo: el pago se habilita cuando la app se conecta con cafetravesia.co.');
+      if (isDemo()) throw new Error('Modo demo: el pago se habilita cuando la app se conecta con cafetravesia.com.');
       return api.post<CheckoutResultDTO>('/api/checkout', parsed.data);
     },
     onSuccess: async (r) => {

@@ -1,7 +1,7 @@
 import { toAppRoute } from '@/lib/links';
 
 /**
- * Reescribe enlaces entrantes (universal links https://cafetravesia.co/..., cafetravesia://...)
+ * Reescribe enlaces entrantes (universal links https://cafetravesia.com/..., cafetravesia://...)
  * a las rutas de la app. Ej.: /cuenta/pedidos/<id> → /pedidos/<id>, /tienda/<slug> → /producto/<slug>.
  */
 export function redirectSystemPath({ path }: { path: string; initial: boolean }) {
