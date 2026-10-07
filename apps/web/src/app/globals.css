@@ -61,47 +61,44 @@
   }
 }
 
-@layer components {
-  .container-site { @apply mx-auto w-full max-w-7xl px-5 sm:px-8; }
-  .eyebrow { @apply text-[0.72rem] font-semibold tracking-[0.22em] uppercase text-ambar-700; }
-  .title-xl { @apply font-display text-4xl leading-[1.05] sm:text-5xl lg:text-6xl; }
-  .title-lg { @apply font-display text-3xl leading-tight sm:text-4xl; }
-  .lede { @apply text-lg leading-relaxed text-noche/75; }
 
-  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition duration-200 disabled:pointer-events-none disabled:opacity-50; }
-  .btn-primary { @apply btn bg-noche text-crema hover:bg-noche-800 active:scale-[0.98]; }
-  .btn-ambar { @apply btn bg-ambar text-noche hover:bg-ambar-300 active:scale-[0.98]; }
-  .btn-outline { @apply btn border border-noche/25 text-noche hover:border-noche hover:bg-noche hover:text-crema; }
-  .btn-ghost { @apply btn text-noche hover:bg-noche/5; }
-  .btn-light { @apply btn border border-crema/40 text-crema hover:bg-crema hover:text-noche; }
-  .btn-sm { @apply px-4 py-2 text-xs; }
+@utility container-site { @apply mx-auto w-full max-w-7xl px-5 sm:px-8; }
+@utility eyebrow { @apply text-[0.72rem] font-semibold tracking-[0.22em] uppercase text-ambar-700; }
+@utility title-xl { @apply font-display text-4xl leading-[1.05] sm:text-5xl lg:text-6xl; }
+@utility title-lg { @apply font-display text-3xl leading-tight sm:text-4xl; }
+@utility lede { @apply text-lg leading-relaxed text-noche/75; }
 
-  .card { @apply rounded-2xl border border-noche/10 bg-hueso shadow-suave; }
-  .chip { @apply inline-flex items-center gap-1 rounded-full border border-noche/15 px-3 py-1 text-xs font-medium text-noche/80; }
-  .chip-active { @apply border-noche bg-noche text-crema; }
-  .label { @apply mb-1.5 block text-sm font-medium text-noche; }
-  .input { @apply w-full rounded-xl border border-noche/15 bg-white px-4 py-3 text-[0.95rem] text-tinta placeholder:text-gris/70 transition focus:border-noche focus:ring-2 focus:ring-ambar/40 focus:outline-none disabled:bg-arena; }
-  .input-error { @apply border-cereza focus:ring-cereza/30; }
-  .field-error { @apply mt-1 text-xs text-cereza; }
-  .link { @apply font-medium text-noche underline decoration-ambar decoration-2 underline-offset-4 hover:text-ambar-700; }
-  .divider-andino { @apply h-3 w-full bg-repeat-x opacity-70; background-image: var(--pattern-andino); background-size: 24px 12px; }
+@utility btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition duration-200 disabled:pointer-events-none disabled:opacity-50; }
+@utility btn-primary { @apply btn bg-noche text-crema hover:bg-noche-800 active:scale-[0.98]; }
+@utility btn-ambar { @apply btn bg-ambar text-noche hover:bg-ambar-300 active:scale-[0.98]; }
+@utility btn-outline { @apply btn border border-noche/25 text-noche hover:border-noche hover:bg-noche hover:text-crema; }
+@utility btn-ghost { @apply btn text-noche hover:bg-noche/5; }
+@utility btn-light { @apply btn border border-crema/40 text-crema hover:bg-crema hover:text-noche; }
+@utility btn-sm { @apply px-4 py-2 text-xs; }
 
-  /* Forma de arco (tarjetas de producto estilo empaque) */
-  .arch { border-radius: var(--radius-arch); }
+@utility card { @apply rounded-2xl border border-noche/10 bg-hueso shadow-suave; }
+@utility chip { @apply inline-flex items-center gap-1 rounded-full border border-noche/15 px-3 py-1 text-xs font-medium text-noche/80; }
+@utility chip-active { @apply border-noche bg-noche text-crema; }
+@utility label { @apply mb-1.5 block text-sm font-medium text-noche; }
+@utility input { @apply w-full rounded-xl border border-noche/15 bg-white px-4 py-3 text-[0.95rem] text-tinta placeholder:text-gris/70 transition focus:border-noche focus:ring-2 focus:ring-ambar/40 focus:outline-none disabled:bg-arena; }
+@utility input-error { @apply border-cereza focus:ring-cereza/30; }
+@utility field-error { @apply mt-1 text-xs text-cereza; }
+@utility link { @apply font-medium text-noche underline decoration-ambar decoration-2 underline-offset-4 hover:text-ambar-700; }
+@utility divider-andino { @apply h-3 w-full bg-repeat-x opacity-70; background-image: var(--pattern-andino); background-size: 24px 12px; }
 
-  /* Texto enriquecido (blog, lecciones, fichas) */
-  .prose-travesia { @apply prose prose-lg max-w-none prose-headings:font-display prose-headings:text-noche prose-p:text-tinta/85 prose-a:text-noche prose-a:decoration-ambar prose-strong:text-noche prose-blockquote:border-ambar prose-blockquote:font-display prose-blockquote:text-noche prose-img:rounded-2xl; }
-  .prose-noche { @apply prose prose-invert prose-lg max-w-none prose-headings:font-display prose-a:text-ambar-300; }
-}
+/* Forma de arco (tarjetas de producto estilo empaque) */
+@utility arch { border-radius: var(--radius-arch); }
 
-@layer utilities {
-  .bg-andino { background-image: var(--pattern-andino); background-size: 48px 24px; }
-  .bg-grano { background-image: var(--noise); }
-  .text-shadow-soft { text-shadow: 0 2px 24px rgb(10 16 34 / 0.45); }
-  .scrollbar-none { scrollbar-width: none; }
-  .scrollbar-none::-webkit-scrollbar { display: none; }
-  .mask-icon { mask-size: contain; mask-repeat: no-repeat; mask-position: center; background-color: currentColor; }
-}
+/* Texto enriquecido (blog, lecciones, fichas) */
+@utility prose-travesia { @apply prose prose-lg max-w-none prose-headings:font-display prose-headings:text-noche prose-p:text-tinta/85 prose-a:text-noche prose-a:decoration-ambar prose-strong:text-noche prose-blockquote:border-ambar prose-blockquote:font-display prose-blockquote:text-noche prose-img:rounded-2xl; }
+@utility prose-noche { @apply prose prose-invert prose-lg max-w-none prose-headings:font-display prose-a:text-ambar-300; }
+
+
+@utility bg-andino { background-image: var(--pattern-andino); background-size: 48px 24px; }
+@utility bg-grano { background-image: var(--noise); }
+@utility text-shadow-soft { text-shadow: 0 2px 24px rgb(10 16 34 / 0.45); }
+@utility mask-icon { mask-size: contain; mask-repeat: no-repeat; mask-position: center; background-color: currentColor; }
+@utility scrollbar-none { scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
 
 :root {
   /* Patrón andino de rombos (de las piezas de marca) */
