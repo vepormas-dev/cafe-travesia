@@ -1,0 +1,31 @@
+{
+  "name": "cafe-travesia",
+  "private": true,
+  "description": "Ecosistema digital Café Travesía: sitio, e-commerce, academia, CMS, app iOS/Android y servicio push",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev --filter=web",
+    "build": "turbo run build --filter=web",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "db:generate": "npm run generate -w @travesia/db",
+    "db:migrate": "npm run migrate -w @travesia/db",
+    "db:seed": "npm run seed -w @travesia/db",
+    "test": "turbo run test"
+  },
+  "devDependencies": {
+    "turbo": "^2.11.7",
+    "typescript": "~5.9.3"
+  },
+  "overrides": {
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "npm@10.9.3"
+}

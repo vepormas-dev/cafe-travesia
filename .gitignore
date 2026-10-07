@@ -1,0 +1,23 @@
+node_modules/
+.next/
+out/
+dist/
+.turbo/
+.expo/
+.vercel/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+coverage/
+# credenciales
+*.pem
+*.p8
+*.p12
+*.keystore
+service-account*.json
+google-services.json
+GoogleService-Info.plist
+infra/cpanel/gateway/config.php
