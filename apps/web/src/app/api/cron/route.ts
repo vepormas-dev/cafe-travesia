@@ -7,6 +7,8 @@ import { runSubscriptionBilling } from '@/lib/commerce/subscriptions';
 import { reconcilePendingOrders } from '@/lib/commerce/payments';
 import { sendDueCampaigns, sendLessonReminders } from '@/lib/push';
 import { recoverAbandonedCarts } from '@/lib/commerce/carts';
+import { revalidateTag } from 'next/cache';
+import { TAGS } from '@/lib/data/tags';
 
 export const maxDuration = 60;
 
@@ -15,6 +17,8 @@ export const maxDuration = 60;
  *  - Vercel Cron (vercel.json) → 1 vez al día en plan Hobby (cobros de suscripción)
  *  - Cron de cPanel (curl cada 15 min) → conciliación de pagos y campañas push programadas
  * ?tasks=billing,reconcile,push,reminders,carts,cleanup  (por defecto: todas)
+ *  - ?tasks=revalidate: vacía la caché pública del catálogo y contenidos (solo a pedido, p. ej. tras
+ *    cargar datos por script directamente en la base de datos)
  */
 async function run(req: Request) {
   const auth = req.headers.get('authorization');
@@ -40,6 +44,11 @@ async function run(req: Request) {
     await step('billing', runSubscriptionBilling);
   }
   await step('push', sendDueCampaigns);
+  await step('revalidate', async () => {
+    const tags = [TAGS.products, TAGS.plans, TAGS.courses, TAGS.posts, TAGS.site, TAGS.stores, TAGS.shipping];
+    for (const tag of tags) revalidateTag(tag, { expire: 0 });
+    return tags;
+  });
   // Tareas diarias: solo en la ejecución de la mañana (hora Bogotá 8-9) o si se piden explícitamente
   const hourBogota = (new Date().getUTCHours() + 19) % 24;
   const daily = url.searchParams.has('tasks') || hourBogota === 8 || url.searchParams.get('daily') === '1';
