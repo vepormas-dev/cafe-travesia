@@ -10,12 +10,13 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test src/*.test.ts"
+    "test": "tsx --test src/*.test.ts"
   },
   "dependencies": {
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "tsx": "^4.20.6",
     "typescript": "~5.9.3"
   }
 }

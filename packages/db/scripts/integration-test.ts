@@ -129,6 +129,17 @@ async function main() {
     assert.equal(joined?.name, 'Cima del Viento');
     console.log('✓ CRUD: JSON, booleanos, enteros, fechas, emojis, update relativo y query API');
 
+    // 4b. Carga inicial completa (idempotente)
+    const { seed } = await import('./seed');
+    await d.delete(db.products).where(eq(db.products.id, productId));
+    await seed(() => undefined);
+    await seed(() => undefined);
+    const counts = await db.rawQuery<{ p: number; v: number; c: number; l: number; q: number; sc: number }>(
+      'SELECT (SELECT COUNT(*) FROM products) p, (SELECT COUNT(*) FROM product_variants) v, (SELECT COUNT(*) FROM courses) c, (SELECT COUNT(*) FROM lessons) l, (SELECT COUNT(*) FROM quiz_questions) q, (SELECT COUNT(*) FROM site_content) sc',
+    );
+    assert.ok(counts[0].p >= 12 && counts[0].v >= 29 && counts[0].c === 4 && counts[0].l >= 15 && counts[0].q >= 4 && counts[0].sc >= 8, JSON.stringify(counts[0]));
+    console.log(`✓ carga inicial idempotente (${counts[0].p} productos, ${counts[0].v} variantes, ${counts[0].c} cursos, ${counts[0].l} lecciones)`);
+
     // 5. Duplicados -> DbError.isDuplicate
     try {
       await d.insert(db.users).values({ firebaseUid: 'fb-2', email: 'ana@example.com' });
@@ -194,8 +205,8 @@ async function main() {
     process.env.DATABASE_URL = `mysql://${mysql.username}@127.0.0.1:${mysql.port}/${mysql.dbName}`;
     process.env.DB_SSL = 'false';
     const d2 = db.getDb();
-    const [p2] = await d2.select().from(db.products).where(eq(db.products.id, productId));
-    assert.deepEqual(p2.tastingNotes, ['cacao', 'panela', 'naranja']);
+    const [p2] = await d2.select().from(db.products).where(eq(db.products.slug, 'travesia-caicedo'));
+    assert.deepEqual(p2.tastingNotes, ['Chocolate', 'Panela', 'Nuez']);
     assert.equal(p2.isFeatured, true);
     assert.ok(p2.createdAt instanceof Date);
     console.log('✓ driver mysql2 directo lee los mismos datos con los mismos tipos');

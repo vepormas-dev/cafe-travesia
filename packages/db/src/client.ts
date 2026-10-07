@@ -180,7 +180,8 @@ export function getDb(): Database {
  * Uso: await atomic([db.insert(t).values(v), db.update(t2).set(...).where(...)])
  * Las sentencias se compilan con toSQL(); no devuelve filas.
  */
-export async function atomic(queries: Array<SQLWrapper & { toSQL(): { sql: string; params: unknown[] } }>) {
+export type AtomicQuery = SQLWrapper & { toSQL(): { sql: string; params: unknown[] } };
+export async function atomic(queries: AtomicQuery[]) {
   const statements: Statement[] = queries.map((q) => {
     const { sql, params } = q.toSQL();
     return { sql, params: normalizeParams(params), method: 'execute' };
