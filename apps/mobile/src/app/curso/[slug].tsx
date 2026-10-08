@@ -13,8 +13,8 @@ import { Markdown } from '@/components/brand';
 import { Badge, Button, EmptyState, Header, Icon, PressableScale, ProgressBar, SectionHeading, Skeleton, Stars, T } from '@/components/ui';
 import { api, errorMessage, isDemo, isDemoError } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
-import { cart } from '@/lib/cart';
 import { haptic } from '@/lib/haptics';
+import { openWeb } from '@/lib/links';
 import { imageSource } from '@/lib/images';
 import { useCourse, useCourseAccess } from '@/lib/queries';
 import { C, R, S } from '@/theme';
@@ -89,19 +89,18 @@ export default function CourseScreen() {
     return (
       <View style={{ gap: 10 }}>
         <Button
-          title={`Comprar · ${formatCOP(c.priceCop)}`}
+          title={`Comprar en la web · ${formatCOP(c.priceCop)}`}
           variant="lima"
-          icon="bag-add-outline"
+          icon="open-outline"
           full
           haptics="add"
           onPress={() => {
-            cart.add({ kind: 'course', id: c.id, quantity: 1 });
-            haptic.success();
-            router.push('/carrito');
+            haptic.tap();
+            void openWeb(`/academia/cursos/${c.slug}`);
           }}
         />
         {c.includedInSubscription ? (
-          <Button title="O inclúyelo con el plan Maestro Premium" variant="ghost" small onPress={() => router.push('/plan')} style={{ alignSelf: 'center' }} />
+          <Button title="O inclúyelo con el plan en la web" variant="ghost" small onPress={() => void openWeb('/suscripciones')} style={{ alignSelf: 'center' }} />
         ) : null}
         {a?.reason === 'login_required' ? <Button title="Ya lo tengo: ingresar" variant="ghost" small onPress={() => router.push('/ingresar')} style={{ alignSelf: 'center' }} /> : null}
       </View>

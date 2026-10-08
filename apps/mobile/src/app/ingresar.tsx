@@ -37,8 +37,7 @@ export default function Ingresar() {
   useEffect(() => {
     if (auth.signedIn) {
       haptic.success();
-      if (router.canGoBack()) router.back();
-      else router.replace('/');
+      router.replace('/academia');
     }
   }, [auth.signedIn]);
 
@@ -172,7 +171,7 @@ export default function Ingresar() {
               </T>
               .
             </T>
-            <Button title="Explorar como invitado" variant="ghost" small onPress={() => (router.canGoBack() ? router.back() : router.replace('/'))} />
+            <Button title="Explorar la Academia" variant="ghost" small onPress={() => router.replace('/academia')} />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

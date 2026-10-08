@@ -29,6 +29,9 @@ export async function createOrder(input: CheckoutInput, user: SessionUser | null
     redeemPoints: user ? input.redeemPoints : 0,
     availablePoints: user?.loyaltyPoints ?? 0,
   });
+  if (input.channel === 'app' && lines.some((l) => l.kind === 'course')) {
+    throw new CartError('Los cursos se compran en cafetravesia.com. Ábrelos en el navegador.', 'invalid');
+  }
   if (coupon && !coupon.ok) throw new CartError(coupon.error, 'coupon');
   if (totals.requiresShipping && !input.address) throw new CartError('Agrega la dirección de envío.', 'invalid');
   if (totals.requiresShipping && !totals.zone) throw new CartError('Aún no hacemos envíos a esa ciudad. Escríbenos.', 'invalid');

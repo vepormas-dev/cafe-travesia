@@ -18,6 +18,9 @@ const RETRY_DAYS = [2, 3]; // tras el 1er fallo +2 días, tras el 2º +3 días; 
 const DAY = 86400000;
 
 export async function createSubscription(input: SubscribeInput, user: SessionUser) {
+  if (input.channel === 'app') {
+    throw new Error('Las suscripciones se contratan en cafetravesia.com.');
+  }
   const db = getDb();
   const [plan] = await db.select().from(t.subscriptionPlans).where(and(eq(t.subscriptionPlans.id, input.planId), eq(t.subscriptionPlans.isActive, true))).limit(1);
   if (!plan) throw new Error('El plan ya no está disponible.');

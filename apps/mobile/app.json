@@ -9,7 +9,7 @@
     "userInterfaceStyle": "light",
     "backgroundColor": "#F8F3EA",
     "primaryColor": "#111A31",
-    "description": "Café especial de Caicedo, Antioquia: tienda, suscripción, Academia y asistente.",
+    "description": "Academia Café Travesía: cursos de café de especialidad, desde el ingreso.",
     "ios": {
       "bundleIdentifier": "co.cafetravesia.app",
       "supportsTablet": false,
@@ -42,22 +42,12 @@
             {
               "scheme": "https",
               "host": "cafetravesia.com",
-              "pathPrefix": "/tienda"
-            },
-            {
-              "scheme": "https",
-              "host": "cafetravesia.com",
               "pathPrefix": "/academia"
             },
             {
               "scheme": "https",
               "host": "cafetravesia.com",
               "pathPrefix": "/cuenta"
-            },
-            {
-              "scheme": "https",
-              "host": "cafetravesia.com",
-              "pathPrefix": "/suscripciones"
             }
           ],
           "category": [

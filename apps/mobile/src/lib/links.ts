@@ -31,13 +31,11 @@ export function toAppRoute(input: string | null | undefined): string | null {
     case undefined:
       return '/';
     case 'tienda':
-      if (!b) return `/tienda${q}`;
-      if (b === 'carrito') return '/carrito';
-      if (b === 'checkout') return '/checkout';
-      if (b === 'pago') return `/pago/resultado${q}`;
-      return `/producto/${enc(b)}`;
     case 'producto':
-      return b ? `/producto/${enc(b)}` : '/tienda';
+    case 'carrito':
+    case 'checkout':
+    case 'suscripciones':
+      return null;
     case 'academia':
       if (b === 'cursos' && c) {
         if (d === 'lecciones' && e) return `/leccion/${enc(e)}`;
@@ -50,8 +48,6 @@ export function toAppRoute(input: string | null | undefined): string | null {
       return b ? `/curso/${enc(b)}` : '/academia';
     case 'leccion':
       return b ? `/leccion/${enc(b)}` : '/academia';
-    case 'suscripciones':
-      return b ? `/suscribir/${enc(b)}` : '/plan';
     case 'cuenta':
       switch (b) {
         case undefined:
@@ -59,7 +55,7 @@ export function toAppRoute(input: string | null | undefined): string | null {
         case 'pedidos':
           return c ? `/pedidos/${enc(c)}` : '/pedidos';
         case 'suscripcion':
-          return '/plan';
+          return null;
         case 'cursos':
           return '/academia';
         case 'certificados':
@@ -84,9 +80,8 @@ export function toAppRoute(input: string | null | undefined): string | null {
     case 'acceso':
       return '/ingresar';
     case 'plan':
+      return null;
     case 'perfil':
-    case 'carrito':
-    case 'checkout':
     case 'pedidos':
     case 'notificaciones':
     case 'puntos':

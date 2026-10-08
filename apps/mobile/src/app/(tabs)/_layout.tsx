@@ -67,10 +67,10 @@ function Dot({ visible, color }: { visible: boolean; color: string }) {
 export default function TabsLayout() {
   return (
     <Tabs tabBar={(p) => <TabBar {...p} />} screenOptions={{ headerShown: false }}>
-      <Tabs.Screen name="index" options={{ title: 'Inicio' }} />
-      <Tabs.Screen name="tienda" options={{ title: 'Tienda' }} />
+      <Tabs.Screen name="index" options={{ href: null }} />
+      <Tabs.Screen name="tienda" options={{ href: null }} />
       <Tabs.Screen name="academia" options={{ title: 'Academia' }} />
-      <Tabs.Screen name="plan" options={{ title: 'Plan' }} />
+      <Tabs.Screen name="plan" options={{ href: null }} />
       <Tabs.Screen name="perfil" options={{ title: 'Perfil' }} />
     </Tabs>
   );
