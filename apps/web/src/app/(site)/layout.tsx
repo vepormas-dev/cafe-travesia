@@ -10,13 +10,16 @@ import { ChatWidget } from '@/components/chat/chat-widget';
 import { CookieNotice } from '@/components/site/cookie-notice';
 import { CartDrawer } from '@/components/cart/cart-drawer';
 
+const OG_IMAGE = { url: '/opengraph-image', width: 1200, height: 630, alt: 'Café Travesía · Café especial de Caicedo, Antioquia' };
+
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getSiteContent('seo');
   return {
     title: { default: seo.title, template: '%s · Café Travesía' },
     description: seo.description,
-    openGraph: { type: 'website', locale: 'es_CO', siteName: 'Café Travesía', title: seo.title, description: seo.description },
-    twitter: { card: 'summary_large_image', title: seo.title, description: seo.description },
+    // Este openGraph reemplaza al del layout raíz; sin `images` se perdía la imagen de /opengraph-image
+    openGraph: { type: 'website', locale: 'es_CO', siteName: 'Café Travesía', title: seo.title, description: seo.description, images: [OG_IMAGE] },
+    twitter: { card: 'summary_large_image', title: seo.title, description: seo.description, images: [OG_IMAGE.url] },
   };
 }
 
