@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { LegalPage } from '@/components/site/legal-page';
@@ -34,8 +35,7 @@ El registro de las compras ya hechas se conserva **sin vínculo a tu cuenta**, p
 La eliminación no se puede deshacer.
 `;
 
-export default async function EliminarCuentaPage() {
-  const user = await getSessionUser();
+export default function EliminarCuentaPage() {
   return (
     <LegalPage
       title="Eliminar cuenta"
@@ -48,22 +48,40 @@ export default async function EliminarCuentaPage() {
         <h2 id="del-public" className="mb-3 text-2xl">
           Eliminar mi cuenta ahora
         </h2>
-        {user?.role === 'customer' ? (
-          <>
-            <p className="mb-4 text-sm text-gris">Sesión iniciada como {user.email}.</p>
-            <DeleteAccount />
-          </>
-        ) : user ? (
-          <p className="text-sm text-gris">Las cuentas del equipo se eliminan desde el panel, por otro administrador.</p>
-        ) : (
-          <div className="space-y-4">
-            <p className="text-sm text-gris">Inicia sesión con la cuenta que quieres eliminar. Después vuelves a esta página para confirmar.</p>
-            <Link href="/ingresar?next=/eliminar-cuenta" className="btn-primary">
-              Ingresar para eliminar la cuenta
-            </Link>
-          </div>
-        )}
+        <Suspense fallback={<LoginPrompt />}>
+          <DeleteSection />
+        </Suspense>
       </section>
     </LegalPage>
+  );
+}
+
+/** La sesión se lee en la petición; el resto de la página se prerenderiza. */
+async function DeleteSection() {
+  const user = await getSessionUser();
+  return (
+    <>
+      {user?.role === 'customer' ? (
+        <>
+          <p className="mb-4 text-sm text-gris">Sesión iniciada como {user.email}.</p>
+          <DeleteAccount />
+        </>
+      ) : user ? (
+        <p className="text-sm text-gris">Las cuentas del equipo se eliminan desde el panel, por otro administrador.</p>
+      ) : (
+        <LoginPrompt />
+      )}
+    </>
+  );
+}
+
+function LoginPrompt() {
+  return (
+    <div className="space-y-4">
+      <p className="text-sm text-gris">Inicia sesión con la cuenta que quieres eliminar. Después vuelves a esta página para confirmar.</p>
+      <Link href="/ingresar?next=/eliminar-cuenta" className="btn-primary">
+        Ingresar para eliminar la cuenta
+      </Link>
+    </div>
   );
 }
