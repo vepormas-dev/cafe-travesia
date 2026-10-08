@@ -19,8 +19,8 @@ export function LegalPage({ title, intro, updated, current, markdown, children }
       <PageHero eyebrow="Ayuda y legal" title={title} intro={intro} crumbs={[{ label: title }]}>
         {updated ? <p className="mt-4 text-sm text-gris">Última actualización: {updated}</p> : null}
       </PageHero>
-      <div className="container-site grid gap-12 py-14 lg:grid-cols-[240px_1fr] lg:py-20">
-        <aside className="lg:sticky lg:top-28 lg:self-start">
+      <div className="container-site grid grid-cols-1 gap-12 py-14 lg:grid-cols-[240px_1fr] lg:py-20">
+        <aside className="min-w-0 lg:sticky lg:top-28 lg:self-start">
           <nav aria-label="Páginas de ayuda">
             <ul className="flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:gap-1 lg:overflow-visible">
               {LEGAL_NAV.map((l) => (
@@ -37,7 +37,7 @@ export function LegalPage({ title, intro, updated, current, markdown, children }
             </ul>
           </nav>
         </aside>
-        <article className="max-w-3xl">
+        <article className="min-w-0 max-w-3xl">
           {markdown ? <Markdown className="prose-headings:scroll-mt-28 [&_h2]:mt-12 [&_h2]:text-3xl">{markdown}</Markdown> : null}
           {children}
         </article>
