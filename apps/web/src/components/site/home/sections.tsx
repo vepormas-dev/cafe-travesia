@@ -294,7 +294,7 @@ export async function HomeNotes() {
   const posts = await getPosts({ limit: 3 });
   if (!posts.length) return null;
   return (
-    <section aria-labelledby="notas-title" className="grid lg:grid-cols-2">
+    <section aria-labelledby="notas-title" className="grid grid-cols-1 lg:grid-cols-2">
       <div className="relative flex min-h-[520px] flex-col justify-between overflow-hidden bg-noche-800 p-8 text-crema sm:p-12 lg:p-16">
         <Image src="/brand/fotos/taza-frase.webp" alt="" fill sizes="50vw" className="object-cover opacity-[0.14] mix-blend-luminosity" aria-hidden />
         <div aria-hidden className="bg-andino absolute inset-0 opacity-[0.06]" />
