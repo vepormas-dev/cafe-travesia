@@ -10,16 +10,18 @@ import { ChatWidget } from '@/components/chat/chat-widget';
 import { CookieNotice } from '@/components/site/cookie-notice';
 import { CartDrawer } from '@/components/cart/cart-drawer';
 
-const OG_IMAGE = { url: '/opengraph-image', width: 1200, height: 630, alt: 'Café Travesía · Café especial de Caicedo, Antioquia' };
+const OG_FALLBACK = { url: '/opengraph-image', width: 1200, height: 630, alt: 'Café Travesía · Café especial de Caicedo, Antioquia' };
 
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getSiteContent('seo');
+  // Imagen para compartir: la del CMS (Contenido > SEO global) o, si está vacía, la generada en /opengraph-image
+  const ogImage = seo.ogImage ? { url: seo.ogImage, alt: seo.title } : OG_FALLBACK;
   return {
     title: { default: seo.title, template: '%s · Café Travesía' },
     description: seo.description,
-    // Este openGraph reemplaza al del layout raíz; sin `images` se perdía la imagen de /opengraph-image
-    openGraph: { type: 'website', locale: 'es_CO', siteName: 'Café Travesía', title: seo.title, description: seo.description, images: [OG_IMAGE] },
-    twitter: { card: 'summary_large_image', title: seo.title, description: seo.description, images: [OG_IMAGE.url] },
+    // Este openGraph reemplaza al del layout raíz: sin `images` las páginas quedaban sin og:image
+    openGraph: { type: 'website', locale: 'es_CO', siteName: 'Café Travesía', title: seo.title, description: seo.description, images: [ogImage] },
+    twitter: { card: 'summary_large_image', title: seo.title, description: seo.description, images: [ogImage.url] },
   };
 }
 
