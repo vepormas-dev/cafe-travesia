@@ -8,11 +8,11 @@ export const metadata: Metadata = {
 };
 
 const MD = `
-> Política de tratamiento de datos personales conforme a la **Ley Estatutaria 1581 de 2012**, el **Decreto 1377 de 2013** (compilado en el Decreto 1074 de 2015) y demás normas de protección de datos en Colombia. Los datos marcados con **[CONFIRMAR CON EL CLIENTE]** deben validarse antes de publicar.
+> Política de tratamiento de datos personales conforme a la **Ley Estatutaria 1581 de 2012**, el **Decreto 1377 de 2013** (compilado en el Decreto 1074 de 2015) y demás normas de protección de datos en Colombia.
 
 ## 1. Responsable del tratamiento
 
-**Café Travesía** [CONFIRMAR CON EL CLIENTE: razón social, NIT, dirección física], correo **info@cafetravesia.co**, teléfono [CONFIRMAR CON EL CLIENTE].
+Responsable del tratamiento: **Café Travesía**, con origen en Caicedo, Antioquia, y punto de venta en el Parque Comercial Florida, Medellín. Canales de contacto: correo **info@cafetravesia.co** y WhatsApp **+57 314 748 2358**.
 
 ## 2. Datos que recolectamos
 
@@ -65,7 +65,7 @@ Nuestros servicios están dirigidos a mayores de 18 años. No recolectamos inten
 
 ## 9. Seguridad y conservación
 
-Aplicamos cifrado en tránsito (HTTPS), control de acceso por roles, firmas HMAC en la conexión con la base de datos y registros de auditoría. Conservamos los datos mientras exista la relación y por los plazos legales (p. ej., contables) [CONFIRMAR CON EL CLIENTE].
+Aplicamos cifrado en tránsito (HTTPS), control de acceso por roles, firmas HMAC en la conexión con la base de datos y registros de auditoría. Conservamos los datos mientras exista la relación y por los plazos legales (p. ej., contables).
 
 ## 10. Vigencia
 
@@ -73,5 +73,5 @@ Esta política rige desde su publicación. Te avisaremos de cambios sustanciales
 `;
 
 export default function PrivacidadPage() {
-  return <LegalPage title="Política de privacidad" intro="Tus datos, tratados con el mismo cuidado que cada cereza." updated="octubre de 2026 [CONFIRMAR CON EL CLIENTE]" current="/privacidad" markdown={MD} />;
+  return <LegalPage title="Política de privacidad" intro="Tus datos, tratados con el mismo cuidado que cada cereza." updated="octubre de 2026" current="/privacidad" markdown={MD} />;
 }

@@ -93,7 +93,6 @@ export default async function NosotrosPage() {
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-xs text-crema/50">Fotos del equipo: [CONFIRMAR CON EL CLIENTE] (pendientes de sesión fotográfica).</p>
         </div>
       </section>
 

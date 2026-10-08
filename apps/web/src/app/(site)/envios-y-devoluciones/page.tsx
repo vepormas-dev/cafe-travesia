@@ -25,7 +25,7 @@ Si tu pedido llega incompleto, con el empaque dañado o con un producto equivoca
 
 ## Derecho de retracto (Ley 1480 de 2011)
 
-En compras a distancia tienes **5 días hábiles** desde la entrega para retractarte, devolviendo el producto en las mismas condiciones en que lo recibiste. Por tratarse de alimentos, **no aplica para café con el empaque abierto** ni para bienes perecederos o de uso personal; en cursos, no aplica una vez accedido el contenido. Los costos de transporte de la devolución corren por cuenta del comprador [CONFIRMAR CON EL CLIENTE].
+En compras a distancia tienes **5 días hábiles** desde la entrega para retractarte, devolviendo el producto en las mismas condiciones en que lo recibiste. Por tratarse de alimentos, **no aplica para café con el empaque abierto** ni para bienes perecederos o de uso personal; en cursos, no aplica una vez accedido el contenido. Los costos de transporte de la devolución corren por cuenta del comprador, salvo que la devolución se deba a un error nuestro o a un producto defectuoso.
 
 El reembolso se hace al mismo medio de pago en máximo **30 días calendario** desde que ejerces el retracto.
 

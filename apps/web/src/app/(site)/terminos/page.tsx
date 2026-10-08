@@ -8,11 +8,9 @@ export const metadata: Metadata = {
 };
 
 const MD = `
-> Los datos marcados con **[CONFIRMAR CON EL CLIENTE]** deben ser validados por Café Travesía y su asesor legal antes de publicar.
-
 ## 1. Quiénes somos
 
-Este sitio (cafetravesia.com), la app móvil y la Academia son operados por **Café Travesía** [CONFIRMAR CON EL CLIENTE: razón social, NIT, domicilio y correo de notificaciones judiciales], con origen en Caicedo, Antioquia, y punto de venta en el Parque Comercial Florida, Medellín.
+Este sitio (cafetravesia.com), la app móvil y la Academia son operados por **Café Travesía**, con origen en Caicedo, Antioquia, y punto de venta en el Parque Comercial Florida, Medellín. Para notificaciones y asuntos legales, escríbenos a **info@cafetravesia.co**.
 
 Al navegar, crear una cuenta o comprar aceptas estos términos. Si no estás de acuerdo, por favor no uses el servicio.
 
@@ -25,7 +23,7 @@ Al navegar, crear una cuenta o comprar aceptas estos términos. Si no estás de 
 
 ## 3. Productos, precios y disponibilidad
 
-- Los precios están en pesos colombianos (COP) e incluyen IVA cuando aplica [CONFIRMAR CON EL CLIENTE: régimen tributario].
+- Los precios están en pesos colombianos (COP) e incluyen IVA cuando aplica.
 - El café es un producto agrícola: el perfil de taza puede variar levemente entre cosechas. Las ediciones de temporada son limitadas y se venden hasta agotar existencias.
 - El precio final, el costo de envío y los descuentos se calculan y confirman en el servidor antes del pago.
 
@@ -49,7 +47,7 @@ Un pedido se confirma únicamente cuando Wompi aprueba la transacción. Si el pa
 
 ## 7. Experiencias (catas y tours)
 
-Las reservas están sujetas a cupos. Puedes reprogramar con mínimo 72 horas de anticipación [CONFIRMAR CON EL CLIENTE]. Si cancelamos por clima o fuerza mayor, te ofrecemos nueva fecha o el reembolso total.
+Las reservas están sujetas a cupos. Puedes reprogramar con mínimo 72 horas de anticipación. Si cancelamos por clima o fuerza mayor, te ofrecemos nueva fecha o el reembolso total.
 
 ## 8. Derecho de retracto y reversión del pago
 
@@ -57,7 +55,7 @@ Conforme a la **Ley 1480 de 2011** (Estatuto del Consumidor), en ventas a distan
 
 ## 9. Puntos Travesía
 
-Los puntos se acumulan con compras pagadas, no son dinero, no son transferibles y pueden vencer [CONFIRMAR CON EL CLIENTE: vigencia y valor del punto]. Podemos ajustar el programa avisando con anticipación.
+Los puntos se acumulan con compras pagadas, no son dinero, no son transferibles y pueden vencer. La vigencia y el valor del punto se informan en el programa de puntos. Podemos ajustar el programa avisando con anticipación.
 
 ## 10. Propiedad intelectual
 
@@ -73,5 +71,5 @@ Estos términos se rigen por las leyes de la República de Colombia. Para petici
 `;
 
 export default function TerminosPage() {
-  return <LegalPage title="Términos y condiciones" intro="Las reglas claras de la casa: compras, suscripciones, Academia y app." updated="octubre de 2026 [CONFIRMAR CON EL CLIENTE]" current="/terminos" markdown={MD} />;
+  return <LegalPage title="Términos y condiciones" intro="Las reglas claras de la casa: compras, suscripciones, Academia y app." updated="octubre de 2026" current="/terminos" markdown={MD} />;
 }

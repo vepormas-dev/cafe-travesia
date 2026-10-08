@@ -21,7 +21,7 @@ const BENEFITS = [
   { Icon: Building2, title: 'Eventos y regalos', text: 'Kits corporativos, catas para equipos y coffee breaks.' },
 ];
 
-// Ejemplos de tipos de aliados (texto, no logotipos reales) [CONFIRMAR CON EL CLIENTE]
+// Ejemplos de tipos de aliados (texto, no logotipos reales)
 const ALLIES = ['Coworking Florida', 'Estudio Laureles', 'Clínica del Poblado', 'Agencia Ruta 80', 'Hotel Santa Elena', 'Colegio La Montaña'];
 
 export default async function EmpresasPage() {
@@ -96,7 +96,7 @@ export default async function EmpresasPage() {
             <h2 id="cotizar-title" className="title-lg">
               Cuéntanos de tu equipo
             </h2>
-            <p className="lede mt-4">Te enviamos una propuesta en menos de 24 horas hábiles, con muestras para catar en tu oficina [CONFIRMAR CON EL CLIENTE].</p>
+            <p className="lede mt-4">Te enviamos una propuesta en menos de 24 horas hábiles, con muestras para catar en tu oficina.</p>
           </div>
           <LeadForm
             source="empresas"
