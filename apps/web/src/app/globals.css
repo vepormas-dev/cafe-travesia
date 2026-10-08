@@ -15,7 +15,8 @@
   --color-ambar: #eb9a37;
   --color-ambar-300: #f5c27a;
   --color-ambar-100: #fbe7c9;
-  --color-ambar-700: #c4741a;
+  /* Acento oscuro para texto pequeño: #985610 cumple WCAG AA (>=4.5:1) sobre crema, hueso y arena */
+  --color-ambar-700: #985610;
   --color-crema: #f8f3ea;
   --color-arena: #efe6d6;
   --color-hueso: #fffcf7;

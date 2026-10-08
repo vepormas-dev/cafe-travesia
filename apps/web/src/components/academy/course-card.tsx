@@ -46,7 +46,7 @@ export function CourseCard({ course, dark, priority, className }: { course: Cour
             <p className={cn('mt-3 flex items-center gap-2 text-xs font-medium', dark ? 'text-crema/75' : 'text-noche/75')}>
               <InstructorAvatar name={course.instructorName} className="size-7 text-[0.6rem]" />
               {course.instructorName}
-              {course.instructorTitle ? <span className={cn('truncate font-normal', dark ? 'text-crema/45' : 'text-gris')}>· {course.instructorTitle}</span> : null}
+              {course.instructorTitle ? <span className={cn('truncate font-normal', dark ? 'text-crema/65' : 'text-gris')}>· {course.instructorTitle}</span> : null}
             </p>
           ) : null}
         </div>
