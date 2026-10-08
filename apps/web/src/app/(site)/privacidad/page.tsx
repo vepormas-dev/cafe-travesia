@@ -57,6 +57,8 @@ Como titular puedes: **conocer, actualizar y rectificar** tus datos; **solicitar
 
 Escríbenos a **info@cafetravesia.co** o desde [Contacto](/contacto) indicando tu nombre, documento y solicitud. Respondemos **consultas en máximo 10 días hábiles** y **reclamos en máximo 15 días hábiles**, prorrogables según la ley.
 
+Para **eliminar tu cuenta** y los datos personales asociados, entra a [Eliminar cuenta](/eliminar-cuenta) (también desde la app, en Perfil › Eliminar mi cuenta). Cancelamos suscripciones, anulamos tarjetas guardadas en Wompi y borramos direcciones, notas, dispositivos y el acceso a cursos. Conservamos el registro de compras ya facturadas, desvinculado de la cuenta, por obligación contable.
+
 ## 8. Menores de edad
 
 Nuestros servicios están dirigidos a mayores de 18 años. No recolectamos intencionalmente datos de menores.

@@ -21,6 +21,7 @@ Al navegar, crear una cuenta o comprar aceptas estos términos. Si no estás de 
 - Una sola cuenta sirve para la tienda, la Academia y la app. La identidad se gestiona con Firebase Authentication (correo y contraseña, Google o Apple).
 - Eres responsable de la confidencialidad de tu contraseña y de la veracidad de tus datos.
 - Podemos suspender cuentas que se usen para fraude o en contra de estos términos.
+- Puedes eliminar tu cuenta y tus datos personales en [Eliminar cuenta](/eliminar-cuenta) o desde la app, en Perfil.
 
 ## 3. Productos, precios y disponibilidad
 

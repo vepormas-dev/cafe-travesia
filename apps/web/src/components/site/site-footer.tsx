@@ -37,6 +37,7 @@ const COLS = [
       { label: 'Preguntas frecuentes', href: '/preguntas-frecuentes' },
       { label: 'Términos y condiciones', href: '/terminos' },
       { label: 'Política de privacidad', href: '/privacidad' },
+      { label: 'Eliminar cuenta', href: '/eliminar-cuenta' },
       { label: 'PQRS y contacto', href: '/contacto' },
     ],
   },
