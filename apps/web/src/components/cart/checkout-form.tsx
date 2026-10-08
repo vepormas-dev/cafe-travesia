@@ -30,6 +30,7 @@ const issuesToErrors = (issues: { path: PropertyKey[]; message: string }[], pref
 
 export const TERMS_URL = '/terminos';
 export const PRIVACY_URL = '/privacidad';
+export const SECURITY_URL = '/compra-segura';
 
 /** Mensaje de error de un campo (fuera del render para no recrearlo en cada tecla). */
 function FieldError({ k, errors }: { k: string; errors: Record<string, string | undefined> }) {
@@ -414,6 +415,12 @@ export function CheckoutForm() {
                 <Lock className="size-4" aria-hidden /> Pagarás en Wompi (Bancolombia)
               </p>
               <p className="mt-1 text-gris">Tarjeta de crédito o débito, PSE, Nequi, botón Bancolombia o Daviplata. Te redirigimos a la pasarela segura y volverás aquí al terminar.</p>
+              <p className="mt-2 text-xs text-gris">
+                Nunca te pediremos por WhatsApp ni por llamada la clave de tu tarjeta ni códigos de verificación.{' '}
+                <Link href={SECURITY_URL} target="_blank" className="link">
+                  Consejos de seguridad en compras
+                </Link>
+              </p>
             </div>
             <div>
               <label className="flex items-start gap-3 text-sm">

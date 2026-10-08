@@ -36,6 +36,7 @@ const COLS = [
     links: [
       { label: 'Envíos y devoluciones', href: '/envios-y-devoluciones' },
       { label: 'Preguntas frecuentes', href: '/preguntas-frecuentes' },
+      { label: 'Consejos de seguridad en compras', href: '/compra-segura' },
       { label: 'Términos y condiciones', href: '/terminos' },
       { label: 'Política de privacidad', href: '/privacidad' },
       { label: 'Eliminar cuenta', href: '/eliminar-cuenta' },

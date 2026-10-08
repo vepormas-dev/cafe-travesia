@@ -26,6 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     page('/contacto', 0.5, 'monthly'),
     page('/preguntas-frecuentes', 0.5, 'monthly'),
     page('/envios-y-devoluciones', 0.4, 'monthly'),
+    page('/compra-segura', 0.4, 'yearly'),
     page('/terminos', 0.2, 'yearly'),
     page('/privacidad', 0.2, 'yearly'),
     page('/eliminar-cuenta', 0.3, 'yearly'),

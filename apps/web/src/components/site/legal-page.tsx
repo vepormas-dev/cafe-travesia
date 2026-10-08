@@ -7,6 +7,7 @@ const LEGAL_NAV = [
   { href: '/privacidad', label: 'Política de privacidad' },
   { href: '/eliminar-cuenta', label: 'Eliminar cuenta' },
   { href: '/envios-y-devoluciones', label: 'Envíos y devoluciones' },
+  { href: '/compra-segura', label: 'Compra segura' },
   { href: '/preguntas-frecuentes', label: 'Preguntas frecuentes' },
   { href: '/contacto', label: 'PQRS y contacto' },
 ];
