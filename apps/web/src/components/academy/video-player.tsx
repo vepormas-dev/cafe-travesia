@@ -96,14 +96,15 @@ export function VideoPlayer({ src, provider, poster, title, startAt = 0, control
 
   if (!src) {
     return (
-      <div className="relative aspect-video w-full overflow-hidden bg-black">
+      <div role="status" aria-label="Contenido en preparación" className="relative aspect-video w-full overflow-hidden bg-black">
         {poster ? <Image src={poster} alt="" fill sizes="(min-width: 1024px) 70vw, 100vw" className="scale-105 object-cover opacity-45 blur-[2px]" priority /> : null}
         <div className="absolute inset-0 bg-gradient-to-t from-[#120c0a] via-[#120c0a]/60 to-[#120c0a]/30" aria-hidden />
         <div className="bg-andino absolute inset-0 opacity-[0.06]" aria-hidden />
         <div className="relative flex h-full items-center justify-center p-5">
           <div className="max-w-md rounded-2xl border border-white/15 bg-black/40 px-6 py-5 text-center backdrop-blur-md">
             <Film className="mx-auto size-8 text-ambar-300" aria-hidden />
-            <p className="mt-3 font-display text-xl text-crema sm:text-2xl">El video de esta lección se publicará pronto</p>
+            <p className="mt-2 text-[0.68rem] font-semibold tracking-[0.18em] text-ambar-300 uppercase">Contenido en preparación</p>
+            <p className="mt-2 font-display text-xl text-crema sm:text-2xl">El video de esta lección se publicará pronto</p>
             <div className="mt-2 text-sm text-crema/70">{emptyHint ?? 'Mientras tanto, lee el resumen de la lección y pregúntale al tutor.'}</div>
           </div>
         </div>
