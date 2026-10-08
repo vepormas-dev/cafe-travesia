@@ -7,6 +7,7 @@ import { AccountSlot, AccountSlotFallback } from '@/components/site/account-slot
 import { SiteFooter } from '@/components/site/site-footer';
 import { Analytics } from '@/components/site/analytics';
 import { ChatWidget } from '@/components/chat/chat-widget';
+import { CookieNotice } from '@/components/site/cookie-notice';
 import { CartDrawer } from '@/components/cart/cart-drawer';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -43,6 +44,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <CartDrawer />
       </Suspense>
       <ChatWidget />
+      <CookieNotice />
       <Suspense fallback={null}>
         <Analytics />
       </Suspense>
