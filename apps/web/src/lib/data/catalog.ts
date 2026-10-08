@@ -19,6 +19,7 @@ import {
   type SiteContentKey,
 } from '@travesia/db';
 import { getDb, isDbConfigured, t } from '@/lib/db';
+import { publicPhone, publicWhatsapp } from '@/lib/public-contact';
 import { TAGS } from './tags';
 
 type ProductRow = typeof t.products.$inferSelect;
@@ -350,29 +351,40 @@ export async function getPost(slug: string): Promise<Post | null> {
 // ---------------------------------------------------------------------------
 export type SiteContent<K extends SiteContentKey> = (typeof SITE_DEFAULTS)[K];
 
+function publishSiteContent<K extends SiteContentKey>(key: K, content: SiteContent<K>): SiteContent<K> {
+  if (key !== 'contact') return content;
+  const contact = content as SiteContent<'contact'>;
+  return { ...contact, phone: publicPhone(contact.phone), whatsapp: publicWhatsapp(contact.whatsapp) } as SiteContent<K>;
+}
+
 export async function getSiteContent<K extends SiteContentKey>(key: K): Promise<SiteContent<K>> {
   'use cache';
   cacheLife('days');
   cacheTag(TAGS.site, TAGS.siteKey(key));
   const fallback = SITE_DEFAULTS[key];
-  if (!isDbConfigured()) return fallback;
+  if (!isDbConfigured()) return publishSiteContent(key, fallback);
   try {
     const [row] = await getDb().select().from(t.siteContent).where(eq(t.siteContent.key, key)).limit(1);
     // Mezcla superficial con los valores por defecto: nuevas claves nunca rompen la página
-    return row?.content ? ({ ...fallback, ...row.content } as SiteContent<K>) : fallback;
+    const merged = row?.content ? ({ ...fallback, ...row.content } as SiteContent<K>) : fallback;
+    return publishSiteContent(key, merged);
   } catch {
-    return fallback;
+    return publishSiteContent(key, fallback);
   }
 }
 
 export type StoreLocation = (typeof seedStores)[number];
+function publishStore<T extends { phone: string | null }>(store: T): T {
+  return { ...store, phone: publicPhone(store.phone) || null };
+}
+
 export async function getStores(): Promise<StoreLocation[]> {
   'use cache';
   cacheLife('days');
   cacheTag(TAGS.stores);
-  if (!isDbConfigured()) return seedStores;
+  if (!isDbConfigured()) return seedStores.map(publishStore) as StoreLocation[];
   const rows = await getDb().select().from(t.stores).where(eq(t.stores.isActive, true)).orderBy(asc(t.stores.sortOrder));
-  return rows.map((r) => ({ ...r, hours: r.hours ?? [] })) as StoreLocation[];
+  return rows.map((r) => publishStore({ ...r, hours: r.hours ?? [] })) as StoreLocation[];
 }
 
 export async function getShippingZones() {

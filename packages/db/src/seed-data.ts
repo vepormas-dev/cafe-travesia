@@ -677,7 +677,7 @@ export const SITE_DEFAULTS = {
   },
   contact: {
     email: 'info@cafetravesia.co',
-    phone: '+57 300 000 0000',
+    phone: '',
     whatsapp: '573147482358',
     address: 'Parque Comercial Florida, Medellín · Caicedo, Antioquia',
     hours: 'Lunes a sábado 9:00 a. m. – 8:00 p. m.',

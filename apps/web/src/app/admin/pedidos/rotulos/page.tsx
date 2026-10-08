@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import { brand, formatCOP, formatDate } from '@travesia/shared';
+import { publicPhone } from '@/lib/public-contact';
 import { staffPage } from '@/lib/admin/guard';
 import { getOrder } from '@/lib/admin/data/orders';
 import { flat, type SPromise } from '@/lib/admin/sp';
@@ -22,6 +23,7 @@ async function Labels({ searchParams }: { searchParams: SPromise }) {
   await staffPage('/admin/pedidos');
   const ids = (flat(await searchParams).ids ?? '').split(',').filter(Boolean).slice(0, 40);
   const orders = (await Promise.all(ids.map((id) => getOrder(id)))).filter((x): x is NonNullable<typeof x> => Boolean(x));
+  const senderPhone = publicPhone(brand.phone);
   return (
     <>
       <div className="print:hidden">
@@ -38,7 +40,7 @@ async function Labels({ searchParams }: { searchParams: SPromise }) {
                   <div>
                     <p className="text-[0.65rem] font-bold tracking-[0.2em] text-gris uppercase">Remitente</p>
                     <p className="font-semibold">{brand.name}</p>
-                    <p className="text-sm">Parque Comercial Florida, Medellín · {brand.phone}</p>
+                    <p className="text-sm">Parque Comercial Florida, Medellín{senderPhone ? ` · ${senderPhone}` : ''}</p>
                   </div>
                   <Image src="/brand/logo.png" alt={brand.name} width={1200} height={804} className="h-auto w-24" />
                 </div>

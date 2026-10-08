@@ -4,6 +4,7 @@ import { Clock, Mail, MapPin, Phone } from 'lucide-react';
 import { brand } from '@travesia/shared';
 import { Logo } from '@/components/brand/logo';
 import { getSiteContent } from '@/lib/data/catalog';
+import { publicPhone, publicWhatsapp } from '@/lib/public-contact';
 import { TAGS } from '@/lib/data/tags';
 import { NewsletterForm } from './newsletter-form';
 import { AppBadges } from './app-badges';
@@ -50,12 +51,14 @@ export async function SiteFooter() {
   cacheLife('days');
   cacheTag(TAGS.site);
   const [contact, apps] = await Promise.all([getSiteContent('contact'), getSiteContent('app_links')]);
+  const phone = publicPhone(contact.phone);
+  const whatsapp = publicWhatsapp(contact.whatsapp);
   const year = new Date().getFullYear();
   const social = [
     { href: contact.instagram, label: 'Instagram', Icon: InstagramIcon },
     { href: contact.facebook, label: 'Facebook', Icon: FacebookIcon },
     { href: contact.tiktok, label: 'TikTok', Icon: TikTokIcon },
-    { href: `https://wa.me/${contact.whatsapp}`, label: 'WhatsApp', Icon: WhatsAppIcon },
+    { href: `https://wa.me/${whatsapp}`, label: 'WhatsApp', Icon: WhatsAppIcon },
   ].filter((s) => s.href);
 
   return (
@@ -90,11 +93,13 @@ export async function SiteFooter() {
                 <Mail className="mt-0.5 size-4 shrink-0 text-ambar" aria-hidden /> {contact.email}
               </a>
             </li>
-            <li>
-              <a href={`tel:${contact.phone.replace(/\s/g, '')}`} className="flex gap-2.5 hover:text-ambar-300">
-                <Phone className="mt-0.5 size-4 shrink-0 text-ambar" aria-hidden /> {contact.phone}
-              </a>
-            </li>
+            {phone ? (
+              <li>
+                <a href={`tel:${phone.replace(/\s/g, '')}`} className="flex gap-2.5 hover:text-ambar-300">
+                  <Phone className="mt-0.5 size-4 shrink-0 text-ambar" aria-hidden /> {phone}
+                </a>
+              </li>
+            ) : null}
           </ul>
           <ul className="flex gap-2" aria-label="Redes sociales">
             {social.map(({ href, label, Icon }) => (

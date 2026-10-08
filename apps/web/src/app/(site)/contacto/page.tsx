@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Clock, Mail, MapPin, MessageSquareText, Phone } from 'lucide-react';
 import { getSiteContent } from '@/lib/data/catalog';
+import { publicPhone, publicWhatsapp } from '@/lib/public-contact';
 import { PageHero } from '@/components/site/page-hero';
 import { LeadForm } from '@/components/site/lead-form';
 import { Emphasis } from '@/components/site/emphasis';
@@ -16,10 +17,12 @@ export const metadata: Metadata = {
 
 export default async function ContactoPage() {
   const c = await getSiteContent('contact');
+  const phone = publicPhone(c.phone);
+  const whatsapp = publicWhatsapp(c.whatsapp);
   const channels = [
-    { Icon: WhatsAppIcon, title: 'WhatsApp', text: `+${c.whatsapp.replace(/^57/, '57 ')}`, href: `https://wa.me/${c.whatsapp}?text=${encodeURIComponent('¡Hola, Café Travesía! ')}`, cta: 'Escribir ahora' },
+    { Icon: WhatsAppIcon, title: 'WhatsApp', text: `+${whatsapp.replace(/^57/, '57 ')}`, href: `https://wa.me/${whatsapp}?text=${encodeURIComponent('¡Hola, Café Travesía! ')}`, cta: 'Escribir ahora' },
     { Icon: Mail, title: 'Correo', text: c.email, href: `mailto:${c.email}`, cta: 'Enviar correo' },
-    { Icon: Phone, title: 'Teléfono', text: c.phone, href: `tel:${c.phone.replace(/\s/g, '')}`, cta: 'Llamar' },
+    ...(phone ? [{ Icon: Phone, title: 'Teléfono', text: phone, href: `tel:${phone.replace(/\s/g, '')}`, cta: 'Llamar' }] : []),
   ];
   return (
     <>

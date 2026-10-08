@@ -4,6 +4,7 @@ import { ArrowRight, ArrowUpRight, CalendarDays, Check, Clock, GraduationCap, Ma
 import { FREQUENCY_LABEL, formatCOP, formatDate, LEVEL_LABEL, type PlanDTO } from '@travesia/shared';
 import { BrandIcon } from '@/components/brand/logo';
 import { getCourses, getPlans, getPosts, getProducts, getSiteContent, getStores } from '@/lib/data/catalog';
+import { publicPhone } from '@/lib/public-contact';
 import { cn } from '@/lib/cn';
 import { ProductArchCard } from '../product-arch-card';
 import { ScrollRail } from '../scroll-rail';
@@ -422,9 +423,9 @@ export async function HomeStores() {
                       <Clock className="mt-0.5 size-4 shrink-0 text-ambar-700" aria-hidden /> {h}
                     </li>
                   ))}
-                  {s.phone ? (
+                  {publicPhone(s.phone) ? (
                     <li className="flex gap-2.5">
-                      <Phone className="mt-0.5 size-4 shrink-0 text-ambar-700" aria-hidden /> {s.phone}
+                      <Phone className="mt-0.5 size-4 shrink-0 text-ambar-700" aria-hidden /> {publicPhone(s.phone)}
                     </li>
                   ) : null}
                 </ul>

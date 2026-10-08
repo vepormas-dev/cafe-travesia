@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Clock, MapPin, Phone } from 'lucide-react';
 import { getProducts, getStores } from '@/lib/data/catalog';
+import { publicPhone } from '@/lib/public-contact';
 import { PageHero } from '@/components/site/page-hero';
 import { StoreIllustration } from '@/components/site/store-illustration';
 import { GoogleG } from '@/components/site/home/sections';
@@ -48,9 +49,9 @@ export default async function TiendasPage() {
                     <Clock className="mt-0.5 size-5 shrink-0 text-ambar-700" aria-hidden /> {h}
                   </li>
                 ))}
-                {s.phone ? (
+                {publicPhone(s.phone) ? (
                   <li className="flex gap-3">
-                    <Phone className="mt-0.5 size-5 shrink-0 text-ambar-700" aria-hidden /> {s.phone}
+                    <Phone className="mt-0.5 size-5 shrink-0 text-ambar-700" aria-hidden /> {publicPhone(s.phone)}
                   </li>
                 ) : null}
               </ul>
