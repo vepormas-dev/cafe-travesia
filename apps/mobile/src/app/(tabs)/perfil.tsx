@@ -89,7 +89,6 @@ export default function Perfil() {
             </Card>
             <Card style={{ paddingVertical: 4 }}>
               <ListItem icon="cube-outline" title="Mis pedidos" subtitle="Estado y rastreo" onPress={() => router.push('/pedidos')} />
-              <ListItem icon="repeat-outline" title="Mi suscripción" subtitle="Se administra en la web" onPress={() => void openWeb('/cuenta/suscripcion')} />
               <ListItem icon="school-outline" title="Mis cursos" onPress={() => router.push('/academia')} />
               <ListItem icon="ribbon-outline" title="Certificados" onPress={() => router.push('/certificados')} />
               <ListItem icon="notifications-outline" title="Bandeja de notificaciones" onPress={() => router.push('/notificaciones')} />

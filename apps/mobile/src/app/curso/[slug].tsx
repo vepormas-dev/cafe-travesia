@@ -7,14 +7,13 @@ import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { formatClock, formatCOP, formatDuration, formatNumber, LEVEL_LABEL } from '@travesia/shared';
+import { formatClock, formatDuration, formatNumber, LEVEL_LABEL } from '@travesia/shared';
 
 import { Markdown } from '@/components/brand';
 import { Badge, Button, EmptyState, Header, Icon, PressableScale, ProgressBar, SectionHeading, Skeleton, Stars, T } from '@/components/ui';
 import { api, errorMessage, isDemo, isDemoError } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 import { haptic } from '@/lib/haptics';
-import { openWeb } from '@/lib/links';
 import { imageSource } from '@/lib/images';
 import { useCourse, useCourseAccess } from '@/lib/queries';
 import { C, R, S } from '@/theme';
@@ -41,7 +40,7 @@ export default function CourseScreen() {
     onError: (e) => {
       haptic.warning();
       const purchase = (e as { data?: { purchase?: boolean } }).data?.purchase;
-      setNotice(purchase ? 'Este curso requiere compra. Agrégalo al carrito para continuar.' : isDemoError(e) ? errorMessage(e) : errorMessage(e));
+      setNotice(purchase ? 'Este curso no está disponible en tu cuenta.' : isDemoError(e) ? errorMessage(e) : errorMessage(e));
     },
   });
 
@@ -78,7 +77,7 @@ export default function CourseScreen() {
     if (a?.canEnrollFree && (a.reason === 'free' || a.reason === 'subscription')) {
       return (
         <Button
-          title={a.reason === 'free' ? 'Inscribirme gratis' : 'Incluido en tu plan · Inscribirme'}
+          title={a.reason === 'free' ? 'Inscribirme gratis' : 'Inscribirme'}
           variant="lima"
           full
           loading={enroll.isPending}
@@ -86,23 +85,14 @@ export default function CourseScreen() {
         />
       );
     }
+    if (a?.reason === 'login_required') {
+      return <Button title="Ingresar" variant="lima" full onPress={() => router.push('/ingresar')} />;
+    }
     return (
-      <View style={{ gap: 10 }}>
-        <Button
-          title={`Comprar en la web · ${formatCOP(c.priceCop)}`}
-          variant="lima"
-          icon="open-outline"
-          full
-          haptics="add"
-          onPress={() => {
-            haptic.tap();
-            void openWeb(`/academia/cursos/${c.slug}`);
-          }}
-        />
-        {c.includedInSubscription ? (
-          <Button title="O inclúyelo con el plan en la web" variant="ghost" small onPress={() => void openWeb('/suscripciones')} style={{ alignSelf: 'center' }} />
-        ) : null}
-        {a?.reason === 'login_required' ? <Button title="Ya lo tengo: ingresar" variant="ghost" small onPress={() => router.push('/ingresar')} style={{ alignSelf: 'center' }} /> : null}
+      <View style={styles.notice} accessibilityLiveRegion="polite">
+        <T v="small" color={C.ambarClaro}>
+          Este curso no está disponible en tu cuenta.
+        </T>
       </View>
     );
   };
@@ -130,7 +120,7 @@ export default function CourseScreen() {
         <Animated.View entering={FadeInDown.duration(500)} style={{ paddingHorizontal: S.xl, marginTop: -70, gap: 10 }}>
           <View style={{ flexDirection: 'row', gap: 8 }}>
             <Badge label={LEVEL_LABEL[c.level] ?? c.level} bg="rgba(201,231,166,0.16)" fg={C.lima} />
-            {c.isFree ? <Badge label="Gratis" bg={C.ambar} fg={C.noche} /> : c.includedInSubscription ? <Badge label="Incluido en Premium" bg="rgba(235,154,55,0.2)" fg={C.ambarClaro} /> : null}
+            {c.isFree ? <Badge label="Gratis" bg={C.ambar} fg={C.noche} /> : null}
           </View>
           <T v="h1" color={C.crema} accessibilityRole="header">
             {c.title}
@@ -152,17 +142,6 @@ export default function CourseScreen() {
                 Tu progreso · {a?.progressPct ?? 0}%
               </T>
               <ProgressBar pct={a?.progressPct ?? 0} color={C.lima} track="rgba(255,255,255,0.1)" />
-            </View>
-          ) : !c.isFree ? (
-            <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 8, marginTop: 6 }}>
-              <T v="h2" color={C.crema}>
-                {formatCOP(c.priceCop)}
-              </T>
-              {c.compareAtCop ? (
-                <T v="body" color={C.inkMuted} style={{ textDecorationLine: 'line-through' }}>
-                  {formatCOP(c.compareAtCop)}
-                </T>
-              ) : null}
             </View>
           ) : null}
           <View style={{ marginTop: 10 }}>{access.isLoading ? <Skeleton dark style={{ height: 50 }} /> : cta()}</View>

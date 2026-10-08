@@ -34,8 +34,11 @@ export function toAppRoute(input: string | null | undefined): string | null {
     case 'producto':
     case 'carrito':
     case 'checkout':
-    case 'suscripciones':
       return null;
+    // El plan incluye cursos: dentro de la app no se enlaza a su contratación.
+    case 'suscripciones':
+    case 'suscribir':
+      return '/academia';
     case 'academia':
       if (b === 'cursos' && c) {
         if (d === 'lecciones' && e) return `/leccion/${enc(e)}`;
@@ -55,7 +58,7 @@ export function toAppRoute(input: string | null | undefined): string | null {
         case 'pedidos':
           return c ? `/pedidos/${enc(c)}` : '/pedidos';
         case 'suscripcion':
-          return null;
+          return '/perfil';
         case 'cursos':
           return '/academia';
         case 'certificados':
@@ -80,7 +83,7 @@ export function toAppRoute(input: string | null | undefined): string | null {
     case 'acceso':
       return '/ingresar';
     case 'plan':
-      return null;
+      return '/academia';
     case 'perfil':
     case 'pedidos':
     case 'notificaciones':
@@ -93,6 +96,10 @@ export function toAppRoute(input: string | null | undefined): string | null {
       return null;
   }
 }
+
+/** Enlaces a la contratación del plan (incluye cursos). No se muestran en la app. */
+export const isSubscriptionLink = (href: string | null | undefined) =>
+  !!href && /^(https?:\/\/[^/]+)?\/(suscripciones|suscribir|plan|cuenta\/suscripcion)(\/|\?|#|$)/i.test(href.trim());
 
 /** Navega dentro de la app o abre el navegador para enlaces externos. */
 export async function openLink(href: string | null | undefined) {

@@ -215,7 +215,7 @@ export function AiCard({ item, width }: { item: AiRecommendation; width?: number
           {item.reason}
         </T>
         <T v="label" style={{ fontFamily: F.bold, marginTop: 2 }}>
-          {item.priceCop ? formatCOP(item.priceCop) : 'Gratis'}
+          {item.kind === 'course' || item.kind === 'plan' ? null : item.priceCop ? formatCOP(item.priceCop) : 'Gratis'}
         </T>
       </View>
     </PressableScale>

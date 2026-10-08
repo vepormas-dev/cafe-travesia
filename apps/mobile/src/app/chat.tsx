@@ -11,7 +11,7 @@ import { Button, DemoNotice, Header, IconButton, T } from '@/components/ui';
 import { api, errorMessage, isDemo, request } from '@/lib/api';
 import { haptic } from '@/lib/haptics';
 import { PHOTOS } from '@/lib/images';
-import { openLink } from '@/lib/links';
+import { isSubscriptionLink, openLink } from '@/lib/links';
 import { KEYS, readJSON, removeKey, writeJSON } from '@/lib/storage';
 import { C, F, R, S } from '@/theme';
 
@@ -36,7 +36,7 @@ function demoReply(text: string): Msg {
   const now = new Date().toISOString();
   if (/asesor|humano|persona/.test(t)) return { id: `d${Date.now()}`, role: 'system', content: 'En modo demo no podemos conectar con un asesor. Escríbenos por WhatsApp o a info@cafetravesia.co.', actions: null, createdAt: now };
   if (/pedido|env[ií]o|rastre/.test(t)) return { id: `d${Date.now()}`, role: 'assistant', content: 'Puedes ver el estado y el rastreo de tus pedidos en **Mis pedidos**. Los envíos en el Valle de Aburrá llegan en 1-2 días hábiles.', actions: [{ type: 'link', label: 'Ver mis pedidos', href: '/cuenta/pedidos' }], createdAt: now };
-  if (/suscrip|plan|pausa/.test(t)) return { id: `d${Date.now()}`, role: 'assistant', content: 'Con la suscripción recibes café fresco con **envío gratis**, y puedes pausar o cancelar cuando quieras.', actions: [{ type: 'link', label: 'Ver planes', href: '/suscripciones' }], createdAt: now };
+  if (/suscrip|plan|pausa/.test(t)) return { id: `d${Date.now()}`, role: 'assistant', content: 'Con la suscripción recibes café fresco con **envío gratis**, y puedes pausar o cancelar cuando quieras.', actions: null, createdAt: now };
   if (/curso|academia|aprender/.test(t)) return { id: `d${Date.now()}`, role: 'assistant', content: 'Te recomiendo empezar con **Fundamentos del Grano**: es gratis y dura 45 minutos.', actions: [{ type: 'link', label: 'Ver curso', href: '/academia/cursos/fundamentos-del-grano' }], createdAt: now };
   return { id: `d${Date.now()}`, role: 'assistant', content: 'Si te gustan los cafés dulces y achocolatados, prueba **Travesía Caicedo**. Si prefieres algo floral y brillante, **Cima del Viento** es nuestra edición de temporada.', actions: [{ type: 'link', label: 'Travesía Caicedo', href: '/tienda/travesia-caicedo' }, { type: 'link', label: 'Cima del Viento', href: '/tienda/cima-del-viento' }], createdAt: now };
 }
@@ -200,9 +200,9 @@ function Bubble({ m, onAction }: { m: Msg; onAction: (a: { type: string; label: 
             {inline(m.content, mine ? C.crema : C.noche)}
           </T>
         </View>
-        {m.actions?.length ? (
+        {m.actions?.some((a) => !isSubscriptionLink(a.href)) ? (
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-            {m.actions.map((a, i) => (
+            {m.actions.filter((a) => !isSubscriptionLink(a.href)).map((a, i) => (
               <Button key={i} title={a.label} small variant={a.type === 'human' ? 'outline' : 'light'} icon={a.type === 'human' ? 'person-outline' : a.href && /^https?:/.test(a.href) ? 'open-outline' : 'arrow-forward'} onPress={() => onAction(a)} style={{ borderColor: a.type === 'human' ? C.noche : C.line }} />
             ))}
           </View>
