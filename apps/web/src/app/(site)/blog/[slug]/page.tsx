@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     description,
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: { type: 'article', title, description, publishedTime: post.publishedAt, authors: post.authorName ? [post.authorName] : undefined, images: post.coverUrl ? [{ url: post.coverUrl }] : undefined },
-    twitter: { card: 'summary_large_image', title, description },
+    twitter: { card: 'summary_large_image', title, description, images: post.coverUrl ? [post.coverUrl] : undefined },
   };
 }
 

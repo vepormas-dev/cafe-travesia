@@ -33,6 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     alternates: { canonical: `/academia/cursos/${c.slug}` },
     openGraph: { title: c.title, description, images: c.coverUrl ? [{ url: c.coverUrl }] : undefined },
+    twitter: { card: 'summary_large_image', title: c.title, description, images: c.coverUrl ? [c.coverUrl] : undefined },
   };
 }
 
