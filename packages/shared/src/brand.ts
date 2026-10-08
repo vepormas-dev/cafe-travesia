@@ -13,7 +13,7 @@ export const brand = {
   domain: 'cafetravesia.co',
   email: 'info@cafetravesia.co',
   phone: '+57 300 000 0000',
-  whatsapp: '573000000000',
+  whatsapp: '573147482358',
   instagram: 'https://instagram.com/cafetravesia',
   facebook: 'https://facebook.com/cafetravesia',
   tiktok: 'https://tiktok.com/@cafetravesia',

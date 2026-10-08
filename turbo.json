@@ -1,10 +1,46 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "build": { "dependsOn": ["^build"], "outputs": [".next/**", "!.next/cache/**", "dist/**"] },
-    "typecheck": { "dependsOn": ["^typecheck"] },
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "dist/**"
+      ],
+      "env": [
+        "NEXT_PUBLIC_*",
+        "DB_*",
+        "DATABASE_URL",
+        "MEDIA_GATEWAY_URL",
+        "FIREBASE_*",
+        "ADMIN_EMAILS",
+        "ADMIN_NOTIFY_EMAIL",
+        "WOMPI_*",
+        "SMTP_*",
+        "MAIL_*",
+        "OPENAI_*",
+        "EXPO_ACCESS_TOKEN",
+        "CRON_SECRET",
+        "REVALIDATE_SECRET",
+        "APPLE_TEAM_ID",
+        "ANDROID_SHA256_FINGERPRINTS",
+        "NEXT_DIST_DIR",
+        "SKIP_TYPECHECK"
+      ]
+    },
+    "typecheck": {
+      "dependsOn": [
+        "^typecheck"
+      ]
+    },
     "lint": {},
     "test": {},
-    "dev": { "cache": false, "persistent": true }
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
   }
 }

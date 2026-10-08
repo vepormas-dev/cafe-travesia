@@ -68,7 +68,7 @@ export const env = {
   expoAccessToken: v('EXPO_ACCESS_TOKEN'),
   cronSecret: v('CRON_SECRET'),
   revalidateSecret: v('REVALIDATE_SECRET'),
-  whatsapp: v('NEXT_PUBLIC_WHATSAPP') ?? '573000000000',
+  whatsapp: v('NEXT_PUBLIC_WHATSAPP') ?? '573147482358',
 };
 
 export const isFirebaseClientConfigured = () => Boolean(env.firebase.apiKey && env.firebase.authDomain && env.firebase.projectId);

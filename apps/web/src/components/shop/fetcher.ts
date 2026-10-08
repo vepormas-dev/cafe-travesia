@@ -28,4 +28,4 @@ export async function api<T>(url: string, init: { method?: string; body?: unknow
 }
 
 export const whatsappUrl = (text: string) =>
-  `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP ?? '573000000000'}?text=${encodeURIComponent(text)}`;
+  `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP ?? '573147482358'}?text=${encodeURIComponent(text)}`;

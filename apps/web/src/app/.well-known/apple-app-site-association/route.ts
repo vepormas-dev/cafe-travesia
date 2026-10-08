@@ -4,7 +4,7 @@
  */
 export function GET() {
   const team = process.env.APPLE_TEAM_ID;
-  const appID = `${team ?? 'TEAMID'}.co.cafetravesia.app`;
+  const appID = `${team ?? '8KLQR9X7ML'}.co.cafetravesia.app`;
   const body = {
     applinks: { details: [{ appIDs: [appID], components: ['/tienda/*', '/academia/*', '/cuenta/*', '/suscripciones/*'].map((p) => ({ '/': p })) }] },
     webcredentials: { apps: [appID] },
