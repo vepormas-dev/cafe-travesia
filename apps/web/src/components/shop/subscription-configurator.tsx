@@ -3,6 +3,7 @@
  * Configurador de suscripción "Diseña tu experiencia": café, molienda, dirección, titular y tarjeta
  * (tokenizada en el navegador con Wompi) → POST /api/subscriptions.
  */
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { AlertTriangle, Check, CheckCircle2, Clock, CreditCard, GraduationCap, Loader2, Lock, MessageCircle, Repeat, Truck, XCircle } from 'lucide-react';
@@ -153,10 +154,13 @@ export function SubscriptionConfigurator({ plan, coffees, otherPlans }: { plan: 
               return (
                 <button key={p.id} type="button" role="radio" aria-checked={on} onClick={() => setProductId(p.id)} className={cn('group flex overflow-hidden rounded-2xl border bg-hueso text-left transition', on ? 'border-noche ring-2 ring-noche' : 'border-noche/10 hover:border-noche/40')}>
                   <div className="relative w-28 shrink-0 overflow-hidden" style={{ backgroundColor: th.bg }}>
-                    <div aria-hidden className="bg-andino absolute inset-0 opacity-15" />
-                    <div className="absolute inset-x-3 top-4 bottom-0 transition duration-500 group-hover:-translate-y-1">
-                      <CoffeeBag name={p.name} color={th.bg} accent={th.accent} />
-                    </div>
+                    {p.imageUrl ? (
+                      <Image src={p.imageUrl} alt="" fill sizes="112px" className="object-cover" />
+                    ) : (
+                      <div className="absolute inset-x-3 top-4 bottom-0">
+                        <CoffeeBag name={p.name} color={th.bg} accent={th.accent} />
+                      </div>
+                    )}
                   </div>
                   <div className="flex-1 p-4">
                     <div className="flex items-start justify-between gap-2">

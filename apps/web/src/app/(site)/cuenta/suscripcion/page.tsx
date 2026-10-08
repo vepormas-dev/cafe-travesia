@@ -51,7 +51,7 @@ async function Subscriptions() {
     user.id,
     subs.map((s) => s.id),
   );
-  const eligible = coffees.filter((p) => p.subscriptionEligible).map((p) => ({ id: p.id, name: p.name, themeColor: p.themeColor, accentColor: p.accentColor, tastingNotes: p.tastingNotes }));
+  const eligible = coffees.filter((p) => p.subscriptionEligible).map((p) => ({ id: p.id, name: p.name, themeColor: p.themeColor, accentColor: p.accentColor, tastingNotes: p.tastingNotes, imageUrl: p.imageUrl }));
   const ordered = [...subs].sort((a, b) => Number(a.status === 'cancelled') - Number(b.status === 'cancelled'));
   return (
     <div className="space-y-8">

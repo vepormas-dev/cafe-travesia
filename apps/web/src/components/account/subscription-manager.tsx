@@ -1,5 +1,6 @@
 'use client';
 /** Gestión de la suscripción: pausar, saltar, reanudar, cambiar café/molienda/plan/dirección y cancelar con encuesta. */
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { CalendarClock, Check, CreditCard, Loader2, MapPin, PauseCircle, PlayCircle, Repeat, SkipForward, X } from 'lucide-react';
@@ -12,7 +13,7 @@ import type { AddressLite } from './use-me';
 import { StatusPill } from './ui';
 import { cn } from '@/lib/cn';
 
-type Coffee = { id: string; name: string; themeColor: string | null; accentColor: string | null; tastingNotes: string[] };
+type Coffee = { id: string; name: string; themeColor: string | null; accentColor: string | null; tastingNotes: string[]; imageUrl: string | null };
 type Panel = null | 'pausar' | 'cambiar' | 'plan' | 'direccion' | 'cancelar';
 const REASONS = ['Tengo demasiado café', 'Es muy costoso para mí', 'No me gustó el café', 'Problemas con las entregas', 'Me voy a mudar o de viaje', 'Otro motivo'];
 const GRINDS = ['grano', 'fina', 'media', 'gruesa'] as const;
@@ -181,9 +182,13 @@ export function SubscriptionManager({ sub, plans, coffees, addresses }: { sub: S
                 {coffees.map((c) => (
                   <button key={c.id} type="button" role="radio" aria-checked={coffee === c.id} onClick={() => setCoffee(c.id)} className={cn('flex items-center gap-3 rounded-xl border bg-hueso p-2 text-left transition', coffee === c.id ? 'border-noche ring-2 ring-noche' : 'border-noche/10 hover:border-noche/40')}>
                     <span className="relative h-16 w-12 shrink-0 overflow-hidden rounded-lg" style={{ backgroundColor: c.themeColor ?? '#111A31' }}>
-                      <span className="absolute inset-x-1.5 top-2 bottom-0">
-                        <CoffeeBag name={c.name} color={c.themeColor} accent={c.accentColor} />
-                      </span>
+                      {c.imageUrl ? (
+                        <Image src={c.imageUrl} alt="" fill sizes="48px" className="object-cover" />
+                      ) : (
+                        <span className="absolute inset-x-1.5 top-2 bottom-0">
+                          <CoffeeBag name={c.name} color={c.themeColor} accent={c.accentColor} />
+                        </span>
+                      )}
                     </span>
                     <span className="min-w-0">
                       <span className="block truncate font-semibold text-noche">{c.name}</span>

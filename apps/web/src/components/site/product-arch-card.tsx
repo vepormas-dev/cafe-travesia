@@ -15,12 +15,12 @@ export function ProductArchCard({ product, className, priority }: { product: Pro
       <div className="arch relative aspect-[4/5] overflow-hidden ring-offset-4 ring-offset-crema transition group-focus-visible:ring-2 group-focus-visible:ring-ambar" style={{ backgroundColor: bg }}>
         <div aria-hidden className="bg-andino absolute inset-x-0 bottom-0 h-16 opacity-25" />
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgb(255_255_255/0.22),transparent_60%)]" />
-        {isCoffee ? (
-          <div className="absolute inset-x-[16%] top-[14%] bottom-[6%] transition duration-500 ease-out group-hover:-translate-y-2 group-hover:-rotate-2">
+        {p.imageUrl ? (
+          <Image src={p.imageUrl} alt={p.name} fill sizes="(min-width: 1024px) 22vw, (min-width: 640px) 40vw, 75vw" priority={priority} className="object-cover transition duration-700 group-hover:scale-105" />
+        ) : isCoffee ? (
+          <div className="absolute inset-x-[16%] top-[14%] bottom-[6%]">
             <CoffeeBag color={p.themeColor} accent={p.accentColor} name={p.name} origin={p.originRegion} />
           </div>
-        ) : p.imageUrl ? (
-          <Image src={p.imageUrl} alt={p.name} fill sizes="(min-width: 1024px) 22vw, (min-width: 640px) 40vw, 75vw" priority={priority} className="object-cover transition duration-700 group-hover:scale-105" />
         ) : null}
         {p.badges[0] ? <span className="absolute top-[18%] left-4 rounded-full bg-crema/95 px-2.5 py-1 text-[0.65rem] font-bold tracking-wider text-noche uppercase shadow-suave">{p.badges[0]}</span> : null}
       </div>

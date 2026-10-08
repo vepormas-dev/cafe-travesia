@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Mountain } from 'lucide-react';
 import { formatCOP, formatNumber, PROFILE_LABELS } from '@travesia/shared';
@@ -81,8 +82,14 @@ export async function HomeSeasonal() {
         </div>
         <div className="relative mx-auto w-[72%] max-w-[400px] lg:-mt-6 lg:w-[88%]">
           <div aria-hidden className="absolute inset-[8%] rounded-full blur-3xl" style={{ backgroundColor: accent, opacity: 0.35 }} />
-          <div className="relative rotate-[4deg] transition duration-700 hover:rotate-0">
-            <CoffeeBag color={light ? shade(bg, -0.35) : shade(bg, -0.32)} accent={accent} name={p.name} origin={p.originRegion} className="drop-shadow-[0_40px_50px_rgba(0,0,0,0.4)]" />
+          <div className="arch relative aspect-[4/5] overflow-hidden shadow-elevada ring-1 ring-black/10">
+            {p.imageUrl ? (
+              <Image src={p.imageUrl} alt={p.name} fill sizes="(min-width:1024px) 36vw, 80vw" className="object-cover" priority />
+            ) : (
+              <div className="absolute inset-x-[12%] top-[8%] bottom-[4%]">
+                <CoffeeBag color={light ? shade(bg, -0.35) : shade(bg, -0.32)} accent={accent} name={p.name} origin={p.originRegion} className="drop-shadow-[0_40px_50px_rgba(0,0,0,0.4)]" />
+              </div>
+            )}
           </div>
           <p className="relative mt-6 rotate-[-4deg] text-center font-script text-3xl sm:text-4xl" style={{ color: accent }}>
             ¡Cuando se acaba, se acaba!

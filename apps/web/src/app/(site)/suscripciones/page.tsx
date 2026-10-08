@@ -71,8 +71,12 @@ export default async function SuscripcionesPage() {
               <Image src="/brand/fotos/latte-travesia.webp" alt="Latte con café Travesía" fill priority sizes="(min-width:1024px) 34vw, 70vw" className="object-cover" />
             </div>
             {bags.slice(0, 2).map((p, i) => (
-              <div key={p.id} className="absolute bottom-0 w-[38%]" style={{ left: `${i * 22}%`, zIndex: 2 - i, transform: `rotate(${i ? 6 : -6}deg)` }} aria-hidden>
-                <CoffeeBag name={p.name} color={p.themeColor} accent={p.accentColor} origin={p.originRegion} />
+              <div key={p.id} className="arch absolute bottom-0 aspect-[4/5] w-[38%] overflow-hidden shadow-elevada" style={{ left: `${i * 22}%`, zIndex: 2 - i, transform: `rotate(${i ? 6 : -6}deg)`, backgroundColor: p.themeColor ?? '#111A31' }} aria-hidden>
+                {p.imageUrl ? (
+                  <Image src={p.imageUrl} alt="" fill sizes="180px" className="object-cover" />
+                ) : (
+                  <CoffeeBag name={p.name} color={p.themeColor} accent={p.accentColor} origin={p.originRegion} />
+                )}
               </div>
             ))}
           </div>

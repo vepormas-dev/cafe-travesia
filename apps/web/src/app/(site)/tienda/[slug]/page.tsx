@@ -152,7 +152,7 @@ export default async function ProductPage({ params }: Props) {
 
             {/* Galería */}
             <div className="order-1 lg:order-2 lg:col-span-5">
-              <ProductGallery name={p.name} origin={p.originRegion} color={th.bg} accent={th.accent} photos={photos} showBag={isCoffee} tone={th.tone} />
+              <ProductGallery name={p.name} origin={p.originRegion} color={th.bg} accent={th.accent} photos={photos} showBag={photos.length === 0} tone={th.tone} />
             </div>
 
             {/* Compra */}

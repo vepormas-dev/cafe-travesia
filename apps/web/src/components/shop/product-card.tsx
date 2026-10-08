@@ -22,27 +22,19 @@ export function ProductCard({ product: p, priority, className }: { product: Prod
         aria-label={`${p.name}${p.subtitle ? `, ${p.subtitle}` : ''}`}
       >
         <div aria-hidden className="bg-andino absolute inset-0 opacity-[0.12]" />
-        {isCoffee || !p.imageUrl ? (
-          <>
-            {p.imageUrl ? (
-              <Image
-                src={p.imageUrl}
-                alt=""
-                fill
-                priority={priority}
-                sizes="(min-width:1024px) 25vw, (min-width:640px) 45vw, 90vw"
-                className="object-cover opacity-0 transition duration-700 group-hover:scale-105 group-hover:opacity-100"
-              />
-            ) : null}
-            <div className="absolute inset-x-[18%] top-[14%] bottom-[6%] transition duration-700 group-hover:translate-y-[4%] group-hover:scale-[0.92] group-hover:opacity-0">
-              <CoffeeBag name={p.name} origin={p.originRegion} color={th.bg} accent={th.accent} className="h-full" />
-            </div>
-          </>
+        {p.imageUrl ? (
+          <Image
+            src={p.imageUrl}
+            alt=""
+            fill
+            priority={priority}
+            sizes="(min-width:1024px) 25vw, (min-width:640px) 45vw, 90vw"
+            className="object-cover transition duration-700 group-hover:scale-105"
+          />
         ) : (
-          <>
-            <Image src={p.imageUrl} alt="" fill priority={priority} sizes="(min-width:1024px) 25vw, (min-width:640px) 45vw, 90vw" className="object-cover transition duration-700 group-hover:scale-105" />
-            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-noche-950/35 via-transparent to-transparent" />
-          </>
+          <div className="absolute inset-x-[18%] top-[14%] bottom-[6%]">
+            <CoffeeBag name={p.name} origin={p.originRegion} color={th.bg} accent={th.accent} className="h-full" />
+          </div>
         )}
         {p.badges[0] ? (
           <span className="absolute top-[18%] left-4 rounded-full bg-crema/95 px-3 py-1 text-[0.65rem] font-bold tracking-[0.14em] text-noche uppercase shadow-suave">{p.badges[0]}</span>

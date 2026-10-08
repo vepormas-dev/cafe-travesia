@@ -58,10 +58,13 @@ export default async function TiendaPage() {
                 className="arch absolute bottom-0 w-[46%] overflow-hidden pt-10 shadow-elevada transition duration-700 hover:-translate-y-2"
                 style={{ backgroundColor: p.themeColor ?? '#111A31', left: `${i * 27}%`, height: `${78 + (i === 1 ? 22 : 0)}%`, zIndex: i === 1 ? 2 : 1, transform: `rotate(${(i - 1) * 4}deg)` }}
               >
-                <div className="bg-andino absolute inset-0 opacity-15" />
-                <div className="relative px-4">
-                  <CoffeeBag name={p.name} origin={p.originRegion} color={p.themeColor} accent={p.accentColor} />
-                </div>
+                {p.imageUrl ? (
+                  <Image src={p.imageUrl} alt="" fill sizes="180px" className="object-cover" />
+                ) : (
+                  <div className="relative px-4">
+                    <CoffeeBag name={p.name} origin={p.originRegion} color={p.themeColor} accent={p.accentColor} />
+                  </div>
+                )}
               </div>
             ))}
           </div>
