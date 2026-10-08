@@ -21,12 +21,8 @@ const STEPS = [
   { icon: 'tienda-online', title: 'Disfruta y gestiona', text: 'Pausa, salta un envío, cambia de café o cancela desde tu cuenta o la app, sin llamadas.' },
 ];
 
-// Testimonios de EJEMPLO: reemplazar por testimonios reales del cliente (CMS) antes de producción.
-const TESTIMONIALS = [
-  { name: 'Laura M.', city: 'Envigado', plan: 'Explorador', text: 'Cada mes llega un origen distinto y siempre está recién tostado. Ya no compro café en el supermercado.' },
-  { name: 'Andrés R.', city: 'Bogotá', plan: 'Maestro Premium', text: 'Los cursos de la Academia me cambiaron la forma de preparar en V60. El café llega perfecto.' },
-  { name: 'Oficina Nexo', city: 'Medellín', plan: 'Oficina', text: 'El equipo pasó de café de greca a espresso de verdad. La factura electrónica llega sin pedirla.' },
-];
+// Sin testimonios inventados: se muestran solo cuando el cliente entregue testimonios reales y autorizados.
+const TESTIMONIALS: { name: string; city: string; plan: string; text: string }[] = [];
 
 const SUB_FAQ = [
   { q: '¿Cuándo me cobran?', a: 'El primer cobro se hace hoy al confirmar. Luego cobramos automáticamente según la frecuencia de tu plan y te avisamos antes de cada envío.' },
@@ -171,7 +167,8 @@ export default async function SuscripcionesPage() {
         </section>
       ) : null}
 
-      {/* Testimonios */}
+      {/* Testimonios (solo reales) */}
+      {TESTIMONIALS.length ? (
       <section className="relative overflow-hidden bg-noche py-16 text-crema lg:py-20" aria-labelledby="testimonios">
         <div aria-hidden className="bg-andino absolute inset-0 opacity-10" />
         <div className="container-site relative">
@@ -190,6 +187,7 @@ export default async function SuscripcionesPage() {
           </ul>
         </div>
       </section>
+      ) : null}
 
       {/* FAQ */}
       <section className="container-site grid gap-10 py-16 lg:grid-cols-[1fr_1.4fr] lg:py-20" aria-labelledby="faq">

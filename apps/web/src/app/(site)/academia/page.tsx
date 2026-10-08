@@ -17,11 +17,8 @@ export const metadata: Metadata = {
   alternates: { canonical: '/academia' },
 };
 
-const TESTIMONIOS = [
-  { quote: 'Pasé de comprar café de paquete a calibrar mi espresso en casa. Alex explica como si estuvieras en la barra con él.', name: 'Laura M.', place: 'Envigado', course: 'Maestría en Extracción' },
-  { quote: 'Entender los procesos lavado, honey y natural me cambió la forma de elegir café. Y el curso es gratis, ¡qué nivel!', name: 'Santiago R.', place: 'Bogotá', course: 'Fundamentos del Grano' },
-  { quote: 'Lo hicimos con todo el equipo de la oficina. Ahora el V60 de las 3 p. m. es sagrado.', name: 'Catalina P.', place: 'Medellín', course: 'Métodos de Filtrado' },
-];
+// Sin testimonios inventados: se muestran solo cuando el cliente entregue testimonios reales y autorizados.
+const TESTIMONIOS: { quote: string; name: string; place: string; course: string }[] = [];
 
 export default async function AcademiaPage() {
   const [courses, plans, posts] = await Promise.all([getCourses(), getPlans('personal'), getPosts({ limit: 1 })]);
@@ -211,7 +208,8 @@ export default async function AcademiaPage() {
         </section>
       ) : null}
 
-      {/* Testimonios */}
+      {/* Testimonios (solo reales) */}
+      {TESTIMONIOS.length ? (
       <section className="bg-crema py-20 text-noche" aria-labelledby="testimonios">
         <div className="container-site">
           <p className="eyebrow">Testimonios</p>
@@ -228,7 +226,7 @@ export default async function AcademiaPage() {
                       {t.place} · {t.course}
                     </span>
                   </span>
-                  <span className="flex" aria-label="5 de 5">
+                  <span className="flex" role="img" aria-label="5 de 5">
                     {Array.from({ length: 5 }, (_, i) => (
                       <Star key={i} className="size-3.5 fill-ambar text-ambar" aria-hidden />
                     ))}
@@ -239,6 +237,7 @@ export default async function AcademiaPage() {
           </ul>
         </div>
       </section>
+      ) : null}
 
       {/* Editorial */}
       {post ? (
