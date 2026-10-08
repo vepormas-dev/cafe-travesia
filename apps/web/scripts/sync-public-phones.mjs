@@ -59,8 +59,16 @@ async function main() {
 
   const stores = await query('SELECT id, slug, phone FROM stores', []);
   const cleared = [];
+  const storeReport = [];
   for (const store of stores) {
-    if (!store.phone || !isPlaceholder(store.phone)) continue;
+    const placeholder = Boolean(store.phone) && isPlaceholder(store.phone);
+    storeReport.push({
+      slug: store.slug,
+      empty: !store.phone,
+      placeholder,
+      shape: store.phone ? String(store.phone).replace(/\d/g, '0') : null,
+    });
+    if (!placeholder) continue;
     await query('UPDATE stores SET phone = NULL WHERE id = ? AND phone = ?', [store.id, store.phone], 'execute');
     cleared.push(store.slug);
   }
@@ -74,6 +82,7 @@ async function main() {
       phone: { before: before.phone ?? null, after: after?.phone ?? null },
     },
     storesCleared: cleared,
+    stores: storeReport,
   }));
 }
 
