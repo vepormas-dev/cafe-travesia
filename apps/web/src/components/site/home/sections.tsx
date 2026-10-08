@@ -109,7 +109,7 @@ export function PlanCard({ plan, cta }: { plan: PlanDTO; cta?: { label: string; 
       </p>
       {save ? (
         <p className={cn('relative mt-1 text-sm', hi ? 'text-ambar-300' : 'text-montana')}>
-          <s className="text-noche/70">{formatCOP(plan.compareAtCop)}</s> · ahorras {save} %
+          <s className={hi ? 'opacity-80' : 'text-noche/70'}>{formatCOP(plan.compareAtCop)}</s> · ahorras {save} %
         </p>
       ) : (
         <p className="mt-1 h-5" />
