@@ -553,7 +553,7 @@ export async function HomeApp() {
                   <p className="text-[0.55rem] font-bold tracking-[0.2em] text-gris uppercase">Plan activo</p>
                   <p className="font-display text-lg">Maestro Premium</p>
                   <p className="mt-2 text-[0.65rem] text-gris">Próxima entrega</p>
-                  <p className="text-xs font-semibold">En 6 días · Cima del Viento</p>
+                  <p className="text-xs font-semibold">En 6 días · Café Travesía Especial</p>
                 </div>
                 <div className="relative h-28 overflow-hidden rounded-2xl">
                   <Image src="/brand/fotos/latte-travesia.webp" alt="" fill sizes="240px" className="object-cover" />
