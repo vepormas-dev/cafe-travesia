@@ -12,7 +12,7 @@ const MD = `
 
 ## 1. Responsable del tratamiento
 
-Responsable del tratamiento: **Café Travesía**, con origen en Caicedo, Antioquia, y punto de venta en el Parque Comercial Florida, Medellín. Canales de contacto: correo **info@cafetravesia.co** y WhatsApp **+57 314 748 2358**.
+Responsable del tratamiento: **Café La Montaña S.A.S.**, NIT **901049274-1**, domicilio Carrera 4 # 4-07, Caicedo, Antioquia, marca comercial **Café Travesía**, con punto de venta en el Parque Comercial Florida, Medellín. Canales: **info@cafetravesia.co**, notificaciones judiciales a **cafedecaicedo@gmail.com** y WhatsApp **+57 314 748 2358**.
 
 ## 2. Datos que recolectamos
 

@@ -6,7 +6,12 @@
  */
 export const brand = {
   name: 'Café Travesía',
-  legalName: 'Café Travesía',
+  /** Razón social del certificado de existencia del 28 de agosto de 2026. */
+  legalName: 'Café La Montaña S.A.S.',
+  nit: '901049274-1',
+  address: 'Carrera 4 # 4-07',
+  municipality: 'Caicedo, Antioquia',
+  notificationEmail: 'cafedecaicedo@gmail.com',
   tagline: 'la esencia de lo que somos',
   claim: 'Cultivamos, tostamos y servimos café especial. Porque si vas a tomar café… que sea de verdad.',
   origin: 'Caicedo, Antioquia',

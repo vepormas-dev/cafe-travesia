@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const MD = `
 ## 1. Quiénes somos
 
-Este sitio (cafetravesia.com), la app móvil y la Academia son operados por **Café Travesía**, con origen en Caicedo, Antioquia, y punto de venta en el Parque Comercial Florida, Medellín. Para notificaciones y asuntos legales, escríbenos a **info@cafetravesia.co**.
+Este sitio (cafetravesia.com), la app móvil y la Academia son operados por **Café La Montaña S.A.S.**, NIT **901049274-1**, con domicilio en Carrera 4 # 4-07, Caicedo, Antioquia, y punto de venta en el Parque Comercial Florida, Medellín. La marca comercial es **Café Travesía**. Para compras y PQRS escribe a **info@cafetravesia.co**. Para notificaciones judiciales, el correo inscrito es **cafedecaicedo@gmail.com**.
 
 Al navegar, crear una cuenta o comprar aceptas estos términos. Si no estás de acuerdo, por favor no uses el servicio.
 

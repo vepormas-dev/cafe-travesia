@@ -150,7 +150,7 @@ export async function SiteFooter() {
       <div className="relative border-t border-crema/10">
         <div className="container-site flex flex-col gap-3 py-6 text-xs text-crema/55 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {brand.legalName}. Todos los derechos reservados.{' '}
+            © {year} {brand.legalName} · NIT {brand.nit} · {brand.address}, {brand.municipality}. Todos los derechos reservados.{' '}
             <Link href="/acceso" className="ml-2 text-crema/35 hover:text-crema/70">
               Acceso administrativo
             </Link>
