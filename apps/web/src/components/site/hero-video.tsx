@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { preload } from 'react-dom';
 import { Pause, Play } from 'lucide-react';
 import { cn } from '@/lib/cn';
 
@@ -8,6 +9,8 @@ import { cn } from '@/lib/cn';
  * movimiento (en ese caso se queda el póster) y ofrece pausar (WCAG 2.2.2).
  */
 export function HeroVideo({ src, poster, className, label }: { src: string; poster: string; className?: string; label: string }) {
+  // El póster es lo primero que se ve (LCP): se pide con prioridad alta desde el HTML.
+  preload(poster, { as: 'image', fetchPriority: 'high' });
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 

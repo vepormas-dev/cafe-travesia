@@ -12,7 +12,8 @@ export async function GET() {
   await connection();
   return handle('cart.get', async () => {
     const user = await apiUser();
-    if (!user) return apiError('Inicia sesión para sincronizar tu carrito', 401);
+    // Un visitante no tiene carrito en la cuenta: 200 vacío (no es un error), el carrito queda solo local.
+    if (!user) return json({ items: [], guest: true });
     return json({ items: await getCart(user.id) });
   });
 }

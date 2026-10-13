@@ -78,8 +78,8 @@ export function SiteHeader({ account }: { account: React.ReactNode }) {
           </button>
 
           <Link href="/" aria-label="Café Travesía, inicio" className="relative mx-auto inline-flex shrink-0 lg:mx-0">
-            <Image src="/brand/logo.png" alt="Café Travesía · la esencia de lo que somos" width={1200} height={804} priority className={cn('h-auto w-[84px] transition-opacity duration-300 lg:w-[104px]', transparent ? 'opacity-0' : 'opacity-100')} />
-            <Image src="/brand/logo-claro.png" alt="" aria-hidden width={1200} height={804} priority className={cn('absolute inset-0 h-auto w-[84px] transition-opacity duration-300 lg:w-[104px]', transparent ? 'opacity-100' : 'opacity-0')} />
+            <Image src="/brand/logo.png" alt="Café Travesía · la esencia de lo que somos" width={1200} height={804} priority sizes="(min-width: 1024px) 104px, 84px" className={cn('h-auto w-[84px] transition-opacity duration-300 lg:w-[104px]', transparent ? 'opacity-0' : 'opacity-100')} />
+            <Image src="/brand/logo-claro.png" alt="" aria-hidden width={1200} height={804} priority sizes="(min-width: 1024px) 104px, 84px" className={cn('absolute inset-0 h-auto w-[84px] transition-opacity duration-300 lg:w-[104px]', transparent ? 'opacity-100' : 'opacity-0')} />
           </Link>
 
           <nav aria-label="Principal" className="hidden flex-1 justify-center lg:flex">

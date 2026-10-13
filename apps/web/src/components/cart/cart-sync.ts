@@ -37,9 +37,11 @@ export function useCartSync() {
 
     void (async () => {
       const res = await fetch('/api/cart', { credentials: 'same-origin' }).catch(() => null);
-      if (!res?.ok) return; // invitado o modo demo: carrito solo local
+      if (!res?.ok) return; // modo demo o error: carrito solo local
+      const body = (await res.json().catch(() => ({}))) as { items?: ServerLine[]; guest?: boolean };
+      if (body.guest) return; // invitado: carrito solo local
       authed = true;
-      const { items = [] } = (await res.json().catch(() => ({}))) as { items?: ServerLine[] };
+      const { items = [] } = body;
       const local = cart.get();
       const missing = items.filter((s) => !local.some((l) => cart.key(l) === cart.key(s)));
       let merged: CartLine[] = local.map((l) => {
