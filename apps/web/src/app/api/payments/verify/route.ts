@@ -1,4 +1,5 @@
 import { eq } from 'drizzle-orm';
+import { connection } from 'next/server';
 import { verifyTransaction } from '@/lib/commerce/payments';
 import { apiError, handle, json } from '@/lib/api';
 import { getDb, t } from '@/lib/db';
@@ -10,6 +11,7 @@ import { isDemoMode } from '@/lib/env';
  * servidor y devuelve el estado del pedido; nunca confía en datos del navegador.
  */
 export async function GET(req: Request) {
+  await connection(); // siempre en tiempo de pedido: nunca se prerenderiza en el build
   return handle('payments.verify', async () => {
     if (isDemoMode()) return apiError('Modo demo', 503);
     const url = new URL(req.url);
