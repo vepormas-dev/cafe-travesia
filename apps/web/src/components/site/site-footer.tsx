@@ -39,6 +39,7 @@ const COLS = [
       { label: 'Consejos de seguridad en compras', href: '/compra-segura' },
       { label: 'Términos y condiciones', href: '/terminos' },
       { label: 'Política de privacidad', href: '/privacidad' },
+      { label: 'Política de cookies', href: '/cookies' },
       { label: 'Eliminar cuenta', href: '/eliminar-cuenta' },
       { label: 'PQRS y contacto', href: '/contacto' },
     ],

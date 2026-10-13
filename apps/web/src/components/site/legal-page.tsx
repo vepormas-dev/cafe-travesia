@@ -5,6 +5,7 @@ import { PageHero } from './page-hero';
 const LEGAL_NAV = [
   { href: '/terminos', label: 'Términos y condiciones' },
   { href: '/privacidad', label: 'Política de privacidad' },
+  { href: '/cookies', label: 'Política de cookies' },
   { href: '/eliminar-cuenta', label: 'Eliminar cuenta' },
   { href: '/envios-y-devoluciones', label: 'Envíos y devoluciones' },
   { href: '/compra-segura', label: 'Compra segura' },

@@ -29,6 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     page('/compra-segura', 0.4, 'yearly'),
     page('/terminos', 0.2, 'yearly'),
     page('/privacidad', 0.2, 'yearly'),
+    page('/cookies', 0.2, 'yearly'),
     page('/eliminar-cuenta', 0.3, 'yearly'),
     ...products.map((p) => ({ ...page(`/tienda/${p.slug}`, p.isFeatured ? 0.8 : 0.7), images: p.imageUrl ? [p.imageUrl.startsWith('http') ? p.imageUrl : `${base}${p.imageUrl}`] : undefined })),
     ...courses.map((c) => page(`/academia/cursos/${c.slug}`, 0.7)),
