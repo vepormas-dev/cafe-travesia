@@ -12,8 +12,8 @@ let mePromise: Promise<MeDTO | null> | null = null;
 let addrPromise: Promise<AddressLite[]> | null = null;
 
 export function fetchMe(): Promise<MeDTO | null> {
-  mePromise ??= fetch('/api/v1/me', { credentials: 'same-origin' })
-    .then(async (r) => (r.ok ? ((await r.json()) as { user: MeDTO }).user : null))
+  mePromise ??= fetch('/api/v1/me?soft=1', { credentials: 'same-origin' })
+    .then(async (r) => (r.ok ? ((await r.json()) as { user: MeDTO | null }).user : null))
     .catch(() => null);
   return mePromise;
 }

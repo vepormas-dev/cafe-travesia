@@ -8,11 +8,16 @@ import { getDb, t } from '@/lib/db';
 import { apiError, cors, demoBlocked, handle, json, parseBody } from '@/lib/api';
 import { isDemoMode } from '@/lib/env';
 
-/** GET /api/v1/me → { user: MeDTO } (cookie o Bearer) */
-export async function GET() {
+/**
+ * GET /api/v1/me → { user: MeDTO } (cookie o Bearer).
+ * La web pide ?soft=1: a un visitante sin sesión le responde 200 { user: null } (sin error en consola);
+ * las apps siguen recibiendo 401 para detectar la sesión vencida.
+ */
+export async function GET(req: Request) {
   await connection();
   return handle('me.get', async () => {
     const user = await apiUser();
+    if (!user && new URL(req.url).searchParams.get('soft') === '1') return json({ user: null }, { headers: { 'Cache-Control': 'private, no-store' } });
     if (!user) return apiError('Inicia sesión', 401);
     return json({ user: toMeDTO(user) }, { headers: { 'Cache-Control': 'private, no-store' } });
   });
