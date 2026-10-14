@@ -14,6 +14,9 @@ const securityHeaders = [
   { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(self), payment=(self)' },
   { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+  // CSP mínima: no limita scripts ni conexiones (Wompi, video, analítica propia), pero impide incrustar
+  // el sitio en otros dominios, cargar plugins y cambiar la base de los enlaces.
+  { key: 'Content-Security-Policy', value: "frame-ancestors 'self'; object-src 'none'; base-uri 'self'" },
 ];
 
 const nextConfig: NextConfig = {
