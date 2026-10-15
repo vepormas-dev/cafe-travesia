@@ -1,0 +1,52 @@
+# Build iOS de la app en un runner macOS (eas build --local: usa las credenciales de EAS sin gastar
+# los builds del plan) y subida a App Store Connect. Solo se ejecuta a mano (workflow_dispatch).
+name: iOS build (macOS, eas local)
+
+on:
+  workflow_dispatch:
+    inputs:
+      submit:
+        description: "Subir el .ipa a App Store Connect (no envía a revisión)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  ios:
+    runs-on: macos-26
+    timeout-minutes: 90
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      EAS_SKIP_AUTO_FINGERPRINT: "1"
+    defaults:
+      run:
+        working-directory: apps/mobile
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Xcode más reciente
+        run: |
+          XC=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -1)
+          [ -n "$XC" ] && sudo xcode-select -s "$XC"
+          xcodebuild -version
+      - name: Dependencias
+        working-directory: .
+        run: npm ci --no-audit --no-fund
+      - name: EAS CLI
+        run: npm install -g eas-cli@latest
+      - name: Build iOS (local)
+        run: eas build -p ios --profile production --local --non-interactive --output "$RUNNER_TEMP/app.ipa"
+      - name: Subir a App Store Connect
+        if: ${{ inputs.submit }}
+        run: eas submit -p ios --profile production --path "$RUNNER_TEMP/app.ipa" --non-interactive
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ios-ipa
+          path: ${{ runner.temp }}/app.ipa
+          if-no-files-found: ignore
+          retention-days: 7
