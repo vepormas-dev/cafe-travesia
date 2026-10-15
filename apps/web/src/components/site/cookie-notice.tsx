@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState, useSyncExternalStore } from "react";
 
+import { isInApp } from "@/lib/in-app";
+
 const KEY = "cafe-travesia-cookies";
 
 function subscribe(onChange: () => void) {
@@ -11,6 +13,8 @@ function subscribe(onChange: () => void) {
 }
 
 function readPending() {
+  // Dentro de la app de Café Travesía no se muestra el aviso (no hay analítica ni cookies opcionales).
+  if (isInApp()) return false;
   try { return !localStorage.getItem(KEY); } catch { return false; }
 }
 

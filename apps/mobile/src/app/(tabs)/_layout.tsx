@@ -19,7 +19,7 @@ const TABS: Record<string, { label: string; icon: IconName; active: IconName }> 
   perfil: { label: 'Perfil', icon: 'person-outline', active: 'person' },
 };
 
-function TabBar({ state, navigation }: TabBarProps) {
+function TabBar({ state, navigation, descriptors }: TabBarProps) {
   const insets = useSafeAreaInsets();
   const current = state.routes[state.index]?.name;
   const dark = current === 'academia';
@@ -29,7 +29,9 @@ function TabBar({ state, navigation }: TabBarProps) {
       <View style={[styles.bar, { paddingBottom: Math.max(insets.bottom, 10) }, dark ? styles.barDark : null]} accessibilityRole="tablist">
         {state.routes.map((route, i) => {
           const t = TABS[route.name];
-          if (!t) return null;
+          // Las pestañas con href: null (Inicio, Tienda y Plan solo redirigen) no se dibujan: en iPad "Plan" parecía no responder.
+          const hidden = (descriptors[route.key]?.options as { href?: unknown } | undefined)?.href === null;
+          if (!t || hidden) return null;
           const focused = state.index === i;
           const fg = focused ? (dark ? C.crema : C.noche) : dark ? 'rgba(248,243,234,0.45)' : 'rgba(17,26,49,0.5)';
           return (

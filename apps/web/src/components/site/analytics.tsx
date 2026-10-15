@@ -2,6 +2,8 @@
 import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
+import { isInApp } from '@/lib/in-app';
+
 /**
  * Analítica propia, sin cookies ni identificadores: un beacon por vista a /api/track
  * con la ruta, la fuente (referrer) y el tipo de dispositivo. Respeta "Do Not Track".
@@ -11,7 +13,8 @@ export function Analytics() {
   const last = useRef<string | null>(null);
 
   useEffect(() => {
-    if (typeof navigator === 'undefined' || navigator.doNotTrack === '1') return;
+    // Dentro de la app no se registra nada (sin rastreo).
+    if (typeof navigator === 'undefined' || navigator.doNotTrack === '1' || isInApp()) return;
     if (last.current === pathname) return;
     const referrer = last.current === null ? document.referrer : `${location.origin}${last.current}`;
     last.current = pathname;

@@ -101,6 +101,16 @@ export function toAppRoute(input: string | null | undefined): string | null {
 export const isSubscriptionLink = (href: string | null | undefined) =>
   !!href && /^(https?:\/\/[^/]+)?\/(suscripciones|suscribir|plan|cuenta\/suscripcion)(\/|\?|#|$)/i.test(href.trim());
 
+/**
+ * Las páginas de cafetravesia.com que abre la app llevan app=1: la web no muestra el aviso de cookies
+ * ni registra analítica dentro de la app (sin rastreo, revisión de Apple 5.1.2).
+ */
+export const inAppUrl = (url: string) => {
+  if (!/^https?:\/\/([a-z0-9-]+\.)*cafetravesia\.(com|co)(\/|$|\?|#)/i.test(url) || /[?&]app=1\b/.test(url)) return url;
+  const [base, hash] = url.split('#');
+  return `${base}${base.includes('?') ? '&' : '?'}app=1${hash !== undefined ? `#${hash}` : ''}`;
+};
+
 /** Navega dentro de la app o abre el navegador para enlaces externos. */
 export async function openLink(href: string | null | undefined) {
   if (!href) return;
@@ -109,12 +119,12 @@ export async function openLink(href: string | null | undefined) {
     router.push(route as Href);
     return;
   }
-  const url = /^https?:\/\//i.test(href) ? href : absoluteUrl(href);
+  const url = inAppUrl(/^https?:\/\//i.test(href) ? href : absoluteUrl(href));
   await WebBrowser.openBrowserAsync(url, { toolbarColor: '#111A31', controlsColor: '#EB9A37' });
 }
 
 export const openWeb = (path: string) =>
-  WebBrowser.openBrowserAsync(absoluteUrl(path), { toolbarColor: '#111A31', controlsColor: '#EB9A37' });
+  WebBrowser.openBrowserAsync(inAppUrl(absoluteUrl(path)), { toolbarColor: '#111A31', controlsColor: '#EB9A37' });
 
 /** Lee los parámetros de una URL (cafetravesia://pago?pedido=..&id=..) sin depender de URL(). */
 export const paramsFromUrl = (url: string) => {

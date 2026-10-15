@@ -41,7 +41,7 @@ function Player({ lesson, height, onTime, onEnd }: { lesson: LessonDTO; height: 
 
   return (
     <View style={{ height, backgroundColor: '#000' }}>
-      <VideoView player={player} style={StyleSheet.absoluteFill} nativeControls={false} contentFit="cover" fullscreenOptions={{ enable: true }} allowsPictureInPicture />
+      <VideoView player={player} style={StyleSheet.absoluteFill} nativeControls={false} contentFit="cover" fullscreenOptions={{ enable: true }} />
       <Pressable style={StyleSheet.absoluteFill} onPress={() => setControls((c) => !c)} accessibilityLabel={controls ? 'Ocultar controles' : 'Mostrar controles'} />
       {controls ? (
         <Animated.View entering={FadeIn} exiting={FadeOut} style={[StyleSheet.absoluteFill, styles.overlay]} pointerEvents="box-none">
