@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       submit:
-        description: "Subir el .ipa a App Store Connect (no envía a revisión)"
+        description: "Subir el .ipa a App Store Connect (requiere la clave ASC en EAS; por defecto se sube aparte con eas-submit.sh)"
         type: boolean
-        default: true
+        default: false
 
 permissions:
   contents: read
