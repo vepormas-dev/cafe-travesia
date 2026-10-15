@@ -9,7 +9,6 @@ import { cart } from './cart-store';
 import { pushCart } from './cart-sync';
 import { useMe } from '@/components/account/use-me';
 import { whatsappUrl } from '@/components/shop/fetcher';
-import { DemoNotice } from '@/components/ui/primitives';
 
 type Verify = { transactionStatus: string | null; order?: { id: string; number: string; status: string; totalCop: number; kind: string; emailHint: string } };
 type State = 'loading' | 'approved' | 'pending' | 'rejected' | 'timeout' | 'demo' | 'notfound' | 'error';
@@ -93,7 +92,7 @@ export function PaymentResult() {
       ) : state === 'demo' ? (
         <div className="card space-y-4 p-8">
           <h1 className="text-3xl">Resultado del pago</h1>
-          <DemoNotice>La verificación de pagos no está disponible sin base de datos ni Wompi configurados.</DemoNotice>
+          <p className="rounded-xl border border-ambar/40 bg-ambar-100 px-4 py-3 text-sm text-noche">No pudimos verificar el pago en línea desde aquí. Si ya pagaste o tienes dudas sobre tu pedido, escríbenos por WhatsApp y lo revisamos.</p>
           <Link href="/tienda" className="btn-primary">
             Volver a la tienda
           </Link>

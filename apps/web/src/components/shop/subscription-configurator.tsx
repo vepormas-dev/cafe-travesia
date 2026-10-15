@@ -11,7 +11,6 @@ import { addressSchema, customerSchema, FREQUENCY_LABEL, formatCOP, GRIND_LABEL,
 import { CoffeeBag } from '@/components/brand/coffee-bag';
 import { RegionSelect } from '@/components/cart/region-select';
 import { useMe } from '@/components/account/use-me';
-import { DemoNotice } from '@/components/ui/primitives';
 import { api, whatsappUrl } from './fetcher';
 import { themeOf } from './color';
 import { BRAND_LABEL, cardBrand, digits, formatCardNumber, tokenizeCard, validateCard, type Acceptance } from './card-utils';
@@ -320,7 +319,7 @@ export function SubscriptionConfigurator({ plan, coffees, otherPlans }: { plan: 
           </p>
           {accState === 'off' ? (
             <div className="mt-5 space-y-3">
-              <DemoNotice>Los cobros recurrentes con tarjeta aún no están configurados. Escríbenos y activamos tu suscripción con otro medio de pago.</DemoNotice>
+              <p className="rounded-xl border border-ambar/40 bg-ambar-100 px-4 py-3 text-sm text-noche">Por ahora activamos tu suscripción por WhatsApp, con el medio de pago que prefieras.</p>
               <a href={whatsappUrl(`Hola, quiero suscribirme al plan ${plan.name}${product ? ` con ${product.name}` : ''} (${GRIND_LABEL[grind]}).`)} target="_blank" rel="noopener noreferrer" className="btn-primary btn-sm">
                 <MessageCircle className="size-4" aria-hidden /> Suscribirme por WhatsApp
               </a>

@@ -17,7 +17,6 @@ import { RegionSelect } from './region-select';
 import { FreeShippingBar } from './free-shipping';
 import { useMe } from '@/components/account/use-me';
 import { api, whatsappUrl } from '@/components/shop/fetcher';
-import { DemoNotice } from '@/components/ui/primitives';
 import { cn } from '@/lib/cn';
 
 type Step = 1 | 2 | 3;
@@ -160,7 +159,7 @@ export function CheckoutForm() {
         window.location.assign(d.wompi.checkoutUrl);
         return;
       }
-      setBanner({ kind: 'demo', text: 'Tu pedido quedó creado, pero los pagos en línea aún no están configurados. Escríbenos por WhatsApp para completarlo.' });
+      setBanner({ kind: 'demo', text: `Tu pedido ${d.number} quedó registrado. Por ahora el pago se completa por WhatsApp: escríbenos y te ayudamos.` });
     } else if (res.status === 409) {
       setBanner({ kind: 'stock', text: res.error });
     } else if (res.status === 422) {
@@ -210,7 +209,7 @@ export function CheckoutForm() {
           <div role="alert" className={cn('rounded-2xl border p-4 text-sm', banner.kind === 'demo' ? 'border-ambar/40 bg-ambar-100' : 'border-cereza/30 bg-cereza/10 text-cereza')}>
             {banner.kind === 'demo' ? (
               <div className="space-y-3 text-noche">
-                <DemoNotice>{banner.text}</DemoNotice>
+                <p className="font-medium">{banner.text}</p>
                 <a href={whatsappUrl(waText)} target="_blank" rel="noopener noreferrer" className="btn-primary btn-sm">
                   <MessageCircle className="size-4" aria-hidden /> Completar por WhatsApp
                 </a>

@@ -15,7 +15,8 @@ export async function POST(req: Request) {
     if (err) return err;
     const user = await apiUser();
     const result = await createOrder(input, user);
-    if (!result.paid && !result.wompi && !isWompiConfigured()) return apiError('Los pagos aún no están configurados. Escríbenos para completar tu pedido.', 503);
+    if (!result.paid && !result.wompi && !isWompiConfigured())
+      return apiError(`Tu pedido ${result.number} quedó registrado. Por ahora el pago se completa por WhatsApp: escríbenos y te ayudamos.`, 503);
     return json(result, 201);
   });
 }
